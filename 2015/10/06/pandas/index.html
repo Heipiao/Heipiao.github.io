@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   
-  <title>Archives: 2015 | 不如</title>
+  <title>pandas | 不如</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="不如">
-<meta property="og:url" content="http://yoursite.com/archives/2015/index.html">
+  <meta name="description" content="##pandas使用今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas">
+<meta property="og:url" content="http://yoursite.com/2015/10/06/pandas/index.html">
 <meta property="og:site_name" content="不如">
-<meta property="og:description">
+<meta property="og:description" content="##pandas使用今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析">
+<meta property="og:updated_time" content="2015-10-06T03:27:44.462Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不如">
-<meta name="twitter:description">
+<meta name="twitter:title" content="pandas">
+<meta name="twitter:description" content="##pandas使用今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析">
   
     <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
   
@@ -170,150 +171,126 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-pandas" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2015/10/06/pandas/" class="article-date">
+  	<time datetime="2015-10-06T03:17:17.000Z" itemprop="datePublished">2015-10-06</time>
+</a>
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pandas
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/06/pandas/" class="archive-article-date">
-  	<time datetime="2015-10-06T03:17:17.000Z" itemprop="datePublished">10月 6</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/06/pandas/">pandas</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##pandas使用<br>今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析<br><a id="more"></a></p>
+<h3 id="合并数据">合并数据</h3><ol>
+<li>pandas.merge</li>
+<li>pandas.concat</li>
+<li><p>combine_first</p>
+<p> <code>pd.merge(df1,df2)</code><br> <code>pd.merge(df1,df2,on=&#39;key&#39;)</code><br> <code>#指定具体一个列来合并</code><br>  <code>pd.merge(df3, df4, left_on=&#39;key1&#39;,right_on=&#39;key2&#39;)</code></p>
+</li>
+</ol>
+<p>这里inner，left，right，outer四种连接方式。<br>具体参数如下：</p>
+<blockquote>
+<ul>
+<li>left     参与合并的左侧 DataFrame</li>
+<li>right     参与合并的右侧 DataFrame</li>
+<li>how     “inner”、”outer”、”left”、”right”其中之一。默认为”inner”</li>
+<li>on     用于连接的列名。必须存在于左右两个 DataFrame 对象中。如果未指定，且其他连接键也未指定，则以 left 和 right 列名的交集作为连接键</li>
+<li>left_on     左侧 DataFrame 中用做连接键的列</li>
+<li>right_on     右侧 DataFreme 中用作连接键的列</li>
+<li>left_index     将左侧的行索引用作其连接键</li>
+<li>right_index     类似于 left_index</li>
+<li>sort     根据连接键对合并后的数据进行排序，默认为 True。有时在处理大数据集时，禁用该项可获得更好的性能</li>
+<li>suffixes     字符串值元组，用于追加到重叠列名的末尾，默认为（’_x’,’_y’）。例如，如果左右两个 DataFrame 对象都有“data”，则结果就会出现”data_x”和”data_y”</li>
+<li>copy     设置为 False，可以在某些特殊情况下避免将数据复制到结果数据结构。默认总是复制</li>
+</ul>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/04/function/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">function</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/04/function/" class="archive-article-date">
-  	<time datetime="2015-10-04T11:12:19.000Z" itemprop="datePublished">10月 4</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/04/function/">function</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/04/logstic/" class="archive-article-date">
-  	<time datetime="2015-10-04T06:39:53.720Z" itemprop="datePublished">10月 4</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/04/logstic/">基于Logistic回归的分类</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/ML/">ML</a>
-	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/04/numpy(1)/" class="archive-article-date">
-  	<time datetime="2015-10-04T06:37:47.511Z" itemprop="datePublished">10月 4</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/04/numpy(1)/">pandas数据结构介绍</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/ML/">ML</a>
-	</div>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="pandas" data-title="pandas" data-url="http://yoursite.com/2015/10/06/pandas/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
 
 </div>
       <footer id="footer">
@@ -339,8 +316,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
