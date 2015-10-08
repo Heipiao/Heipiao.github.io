@@ -4,18 +4,42 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   
-  <title>pandas | 不如</title>
+  <title>String | 不如</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##pandas使用今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析">
+  <meta name="description" content="Spilt()函数对于绝大部分字符串，使用python自带的Spilt()函数就足以完成预期的功能。
+val = &apos;a,b, guido&apos;
+val.split(&apos;,&apos;)
+#这就是最简单的例子
+pieces = [x.strip() for x in val.split(&apos;,&apos;)]
+&apos;::&apos;.join(pieces)
+#这用来添加中间的：：
+#另外还有这些函数可以使用
+val.index(&apos;,&apos;)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pandas">
-<meta property="og:url" content="http://yoursite.com/2015/10/06/pandas/index.html">
+<meta property="og:title" content="String">
+<meta property="og:url" content="http://yoursite.com/2015/10/08/String/index.html">
 <meta property="og:site_name" content="不如">
-<meta property="og:description" content="##pandas使用今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析">
-<meta property="og:updated_time" content="2015-10-06T03:27:44.462Z">
+<meta property="og:description" content="Spilt()函数对于绝大部分字符串，使用python自带的Spilt()函数就足以完成预期的功能。
+val = &apos;a,b, guido&apos;
+val.split(&apos;,&apos;)
+#这就是最简单的例子
+pieces = [x.strip() for x in val.split(&apos;,&apos;)]
+&apos;::&apos;.join(pieces)
+#这用来添加中间的：：
+#另外还有这些函数可以使用
+val.index(&apos;,&apos;)">
+<meta property="og:updated_time" content="2015-10-08T15:39:58.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pandas">
-<meta name="twitter:description" content="##pandas使用今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析">
+<meta name="twitter:title" content="String">
+<meta name="twitter:description" content="Spilt()函数对于绝大部分字符串，使用python自带的Spilt()函数就足以完成预期的功能。
+val = &apos;a,b, guido&apos;
+val.split(&apos;,&apos;)
+#这就是最简单的例子
+pieces = [x.strip() for x in val.split(&apos;,&apos;)]
+&apos;::&apos;.join(pieces)
+#这用来添加中间的：：
+#另外还有这些函数可以使用
+val.index(&apos;,&apos;)">
   
     <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
   
@@ -171,11 +195,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-pandas" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-String" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/06/pandas/" class="article-date">
-  	<time datetime="2015-10-06T03:17:17.000Z" itemprop="datePublished">2015-10-06</time>
+      <a href="/2015/10/08/String/" class="article-date">
+  	<time datetime="2015-10-08T15:24:13.000Z" itemprop="datePublished">2015-10-08</time>
 </a>
     </div>
   
@@ -188,7 +212,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      pandas
+      String
     </h1>
   
 
@@ -208,30 +232,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##pandas使用<br>今天主要看了各种数据的预处理，也就是clean data的过程，对于NAN和冗余数据的处理进行分析<br><a id="more"></a></p>
-<h3 id="合并数据">合并数据</h3><ol>
-<li>pandas.merge</li>
-<li>pandas.concat</li>
-<li><p>combine_first</p>
-<p> <code>pd.merge(df1,df2)</code><br> <code>pd.merge(df1,df2,on=&#39;key&#39;)</code><br> <code>#指定具体一个列来合并</code><br>  <code>pd.merge(df3, df4, left_on=&#39;key1&#39;,right_on=&#39;key2&#39;)</code></p>
-</li>
-</ol>
-<p>这里inner，left，right，outer四种连接方式。<br>具体参数如下：</p>
-<blockquote>
-<ul>
-<li>left     参与合并的左侧 DataFrame</li>
-<li>right     参与合并的右侧 DataFrame</li>
-<li>how     “inner”、”outer”、”left”、”right”其中之一。默认为”inner”</li>
-<li>on     用于连接的列名。必须存在于左右两个 DataFrame 对象中。如果未指定，且其他连接键也未指定，则以 left 和 right 列名的交集作为连接键</li>
-<li>left_on     左侧 DataFrame 中用做连接键的列</li>
-<li>right_on     右侧 DataFreme 中用作连接键的列</li>
-<li>left_index     将左侧的行索引用作其连接键</li>
-<li>right_index     类似于 left_index</li>
-<li>sort     根据连接键对合并后的数据进行排序，默认为 True。有时在处理大数据集时，禁用该项可获得更好的性能</li>
-<li>suffixes     字符串值元组，用于追加到重叠列名的末尾，默认为（’_x’,’_y’）。例如，如果左右两个 DataFrame 对象都有“data”，则结果就会出现”data_x”和”data_y”</li>
-<li>copy     设置为 False，可以在某些特殊情况下避免将数据复制到结果数据结构。默认总是复制</li>
-</ul>
-</blockquote>
+        <h1 id="Spilt()函数">Spilt()函数</h1><p>对于绝大部分字符串，使用python自带的Spilt()函数就足以完成预期的功能。</p>
+<pre><code>val = <span class="string">'a,b, guido'</span>
+val.<span class="function"><span class="title">split</span><span class="params">(<span class="string">','</span>)</span></span>
+#这就是最简单的例子
+pieces = [x.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> x <span class="keyword">in</span> val.<span class="function"><span class="title">split</span><span class="params">(<span class="string">','</span>)</span></span>]
+<span class="string">'::'</span>.<span class="function"><span class="title">join</span><span class="params">(pieces)</span></span>
+#这用来添加中间的：：
+#另外还有这些函数可以使用
+val.<span class="function"><span class="title">index</span><span class="params">(<span class="string">','</span>)</span></span>
+val.<span class="function"><span class="title">find</span><span class="params">(<span class="string">','</span>)</span></span>
+</code></pre><h2 id="正则表达式">正则表达式</h2><p>正则表达式（通常称作 regex）提供了一种灵活的在文本中搜索或匹配字符串模式的方式。正则表达式是根据正则表达式语言编写的字符串。Python 内置的 re 模块负责对字符串应用正则表达式。</p>
+<pre><code><span class="keyword">import</span> re
+regex = re.<span class="keyword">compile</span>(<span class="string">'\s+'</span>)
+regex.split(text)
+[<span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'baz'</span>, <span class="string">'qux'</span>]
+# 如果只希望得到匹配 regex 的所有模式，则可以使用 <span class="keyword">findall</span> 方法
+regex.<span class="keyword">findall</span>(text)
+[<span class="string">' '</span>, <span class="string">'\t '</span>, <span class="string">' \t'</span>]
+</code></pre><p>match 和 search 跟 findall 功能类似。findall 返回的是字符串中所有的匹配项，而 search 则只返回第一个匹配项。match 更加严格，它只匹配字符串的首部。</p>
 
       
     </div>
@@ -241,18 +260,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/10/08/String/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          String
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/10/04/logstic/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">基于Logistic回归的分类</div>
+    <a href="/2015/10/06/pandas/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">pandas</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -281,7 +291,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="pandas" data-title="pandas" data-url="http://yoursite.com/2015/10/06/pandas/"></div>
+	<div class="ds-thread" data-thread-key="String" data-title="String" data-url="http://yoursite.com/2015/10/08/String/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
