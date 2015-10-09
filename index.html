@@ -172,6 +172,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-PLOT" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/09/PLOT/" class="article-date">
+  	<time datetime="2015-10-09T14:34:32.000Z" itemprop="datePublished">2015-10-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/09/PLOT/">PLOT</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。<br>&lt;–!more–&gt;</p>
+<h1 id="matplotlib工具包">matplotlib工具包</h1><p>matplotlib 的图像都位于 Figure 对象中。你可以使用 plt.figure 创建一个新的Figure。</p>
+<pre><code>import matplotlib<span class="class">.pyplot</span> as plt
+fig = plt.<span class="function"><span class="title">figure</span><span class="params">()</span></span>
+fig.<span class="function"><span class="title">show</span><span class="params">()</span></span>
+</code></pre><p>不能通过<strong>空Figure绘图</strong>，必须使用add_subplot创建subplot。</p>
+<pre><code>ax1 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>)
+ax2 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>)
+ax3 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>)
+</code></pre><p>这样就添加三个子图。</p>
+<p>其余的具体颜色形状和图例都和MATLAB的绘图十分相似，我就不详细叙述了。</p>
+<h1 id="pandas中绘图函数">pandas中绘图函数</h1><h2 id="线形图">线形图</h2><p>对于Series和DataFrame都有一个plot方法，默认都是线形图。</p>
+<pre><code>df.<span class="function"><span class="title">plot</span><span class="params">()</span></span>
+s.<span class="function"><span class="title">plot</span><span class="params">()</span></span>
+plt.<span class="function"><span class="title">show</span><span class="params">()</span></span>
+</code></pre><h2 id="柱状图">柱状图</h2><p>在生成线性图的代码中加上 kind = ‘bar’（垂直柱状图）或 kind = ‘barh’（水平柱状图）即可生成柱状图。</p>
+<pre><code>data = <span class="function"><span class="title">Series</span><span class="params">(np.random.rand(<span class="number">16</span>)</span></span>,index = <span class="function"><span class="title">list</span><span class="params">(<span class="string">'abcdefghijklmnop'</span>)</span></span>)
+data.<span class="function"><span class="title">plot</span><span class="params">(kind=<span class="string">'bar'</span>,ax=axes[<span class="number">0</span>],color=<span class="string">'b'</span>,alpha=<span class="number">0.7</span>)</span></span>
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-String" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
