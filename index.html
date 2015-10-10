@@ -198,25 +198,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。<br>&lt;–!more–&gt;</p>
-<h1 id="matplotlib工具包">matplotlib工具包</h1><p>matplotlib 的图像都位于 Figure 对象中。你可以使用 plt.figure 创建一个新的Figure。</p>
-<pre><code>import matplotlib<span class="class">.pyplot</span> as plt
-fig = plt.<span class="function"><span class="title">figure</span><span class="params">()</span></span>
-fig.<span class="function"><span class="title">show</span><span class="params">()</span></span>
-</code></pre><p>不能通过<strong>空Figure绘图</strong>，必须使用add_subplot创建subplot。</p>
-<pre><code>ax1 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>)
-ax2 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>)
-ax3 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>)
-</code></pre><p>这样就添加三个子图。</p>
-<p>其余的具体颜色形状和图例都和MATLAB的绘图十分相似，我就不详细叙述了。</p>
-<h1 id="pandas中绘图函数">pandas中绘图函数</h1><h2 id="线形图">线形图</h2><p>对于Series和DataFrame都有一个plot方法，默认都是线形图。</p>
-<pre><code>df.<span class="function"><span class="title">plot</span><span class="params">()</span></span>
-s.<span class="function"><span class="title">plot</span><span class="params">()</span></span>
-plt.<span class="function"><span class="title">show</span><span class="params">()</span></span>
-</code></pre><h2 id="柱状图">柱状图</h2><p>在生成线性图的代码中加上 kind = ‘bar’（垂直柱状图）或 kind = ‘barh’（水平柱状图）即可生成柱状图。</p>
-<pre><code>data = <span class="function"><span class="title">Series</span><span class="params">(np.random.rand(<span class="number">16</span>)</span></span>,index = <span class="function"><span class="title">list</span><span class="params">(<span class="string">'abcdefghijklmnop'</span>)</span></span>)
-data.<span class="function"><span class="title">plot</span><span class="params">(kind=<span class="string">'bar'</span>,ax=axes[<span class="number">0</span>],color=<span class="string">'b'</span>,alpha=<span class="number">0.7</span>)</span></span>
-</code></pre>
+        <p>绘图是数据分析工作中最重要的任务之一，是探索过程的一部分，例如，帮我们找出异常值，必要的数据转换、得出有关模型的 idea 等。<br>
       
     </div>
     
@@ -229,6 +211,10 @@ data.<span class="function"><span class="title">plot</span><span class="params">
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/09/PLOT/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -270,26 +256,7 @@ data.<span class="function"><span class="title">plot</span><span class="params">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Spilt()函数">Spilt()函数</h1><p>对于绝大部分字符串，使用python自带的Spilt()函数就足以完成预期的功能。</p>
-<pre><code>val = <span class="string">'a,b, guido'</span>
-val.<span class="function"><span class="title">split</span><span class="params">(<span class="string">','</span>)</span></span>
-#这就是最简单的例子
-pieces = [x.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> x <span class="keyword">in</span> val.<span class="function"><span class="title">split</span><span class="params">(<span class="string">','</span>)</span></span>]
-<span class="string">'::'</span>.<span class="function"><span class="title">join</span><span class="params">(pieces)</span></span>
-#这用来添加中间的：：
-#另外还有这些函数可以使用
-val.<span class="function"><span class="title">index</span><span class="params">(<span class="string">','</span>)</span></span>
-val.<span class="function"><span class="title">find</span><span class="params">(<span class="string">','</span>)</span></span>
-</code></pre><h2 id="正则表达式">正则表达式</h2><p>正则表达式（通常称作 regex）提供了一种灵活的在文本中搜索或匹配字符串模式的方式。正则表达式是根据正则表达式语言编写的字符串。Python 内置的 re 模块负责对字符串应用正则表达式。</p>
-<pre><code><span class="keyword">import</span> re
-regex = re.<span class="keyword">compile</span>(<span class="string">'\s+'</span>)
-regex.split(text)
-[<span class="string">'foo'</span>, <span class="string">'bar'</span>, <span class="string">'baz'</span>, <span class="string">'qux'</span>]
-# 如果只希望得到匹配 regex 的所有模式，则可以使用 <span class="keyword">findall</span> 方法
-regex.<span class="keyword">findall</span>(text)
-[<span class="string">' '</span>, <span class="string">'\t '</span>, <span class="string">' \t'</span>]
-</code></pre><p>match 和 search 跟 findall 功能类似。findall 返回的是字符串中所有的匹配项，而 search 则只返回第一个匹配项。match 更加严格，它只匹配字符串的首部。</p>
-
+        <p>字符串是一种常见数据结构。<br>
       
     </div>
     
@@ -302,6 +269,10 @@ regex.<span class="keyword">findall</span>(text)
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2015/10/08/String/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
