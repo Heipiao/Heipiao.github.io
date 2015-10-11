@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/10/11/groupby/index.html">
 <meta property="og:site_name" content="不如">
 <meta property="og:description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
-<meta property="og:updated_time" content="2015-10-11T15:56:56.152Z">
+<meta property="og:updated_time" content="2015-10-11T16:18:15.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="groupby">
 <meta name="twitter:description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
@@ -215,6 +215,9 @@
 <pre><code>grouped.<span class="function"><span class="title">mean</span><span class="params">()</span></span>
 #另外还可以生成层次化索引
 means = df[<span class="string">'data1'</span>].<span class="function"><span class="title">groupby</span><span class="params">([df[<span class="string">'key1'</span>],df[<span class="string">'key2'</span>]])</span></span>.<span class="function"><span class="title">mean</span><span class="params">()</span></span>
+</code></pre><h2 id="分组进行迭代">分组进行迭代</h2><pre><code><span class="keyword">for</span> name,<span class="keyword">group</span> <span class="keyword">in</span> df.groupby(<span class="string">'key1'</span>):
+    <span class="keyword">print</span> name
+    <span class="keyword">print</span> <span class="keyword">group</span>
 </code></pre>
       
     </div>
