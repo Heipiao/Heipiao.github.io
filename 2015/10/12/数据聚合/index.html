@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   
-  <title>groupby | 不如</title>
+  <title>数据聚合 | 不如</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
+  <meta name="description" content="对于聚合，我指的是任何能够从数组产生标量值的数据转换过程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="groupby">
-<meta property="og:url" content="http://yoursite.com/2015/10/11/groupby/index.html">
+<meta property="og:title" content="数据聚合">
+<meta property="og:url" content="http://yoursite.com/2015/10/12/数据聚合/index.html">
 <meta property="og:site_name" content="不如">
-<meta property="og:description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
-<meta property="og:updated_time" content="2015-10-11T16:18:15.530Z">
+<meta property="og:description" content="对于聚合，我指的是任何能够从数组产生标量值的数据转换过程。">
+<meta property="og:updated_time" content="2015-10-12T15:55:39.381Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="groupby">
-<meta name="twitter:description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
+<meta name="twitter:title" content="数据聚合">
+<meta name="twitter:description" content="对于聚合，我指的是任何能够从数组产生标量值的数据转换过程。">
   
     <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
   
@@ -171,11 +171,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-groupby" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-数据聚合" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/11/groupby/" class="article-date">
-  	<time datetime="2015-10-11T15:40:46.000Z" itemprop="datePublished">2015-10-11</time>
+      <a href="/2015/10/12/数据聚合/" class="article-date">
+  	<time datetime="2015-10-12T15:02:03.000Z" itemprop="datePublished">2015-10-12</time>
 </a>
     </div>
   
@@ -188,7 +188,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      groupby
+      数据聚合
     </h1>
   
 
@@ -208,16 +208,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。<br><a id="more"></a></p>
-<h2 id="分组">分组</h2><p>这里我们使用groupby函数来实现这个功能。</p>
-<pre><code>grouped = df[<span class="string">'data1'</span>].<span class="function"><span class="title">groupby</span><span class="params">(df[<span class="string">'key1'</span>])</span></span>
-</code></pre><p>变量 grouped 是一个 GroupBy 对象。它实际上还没有进行任何计算，只是含有一些有关分组键 df[‘key1’]的中间数据而已。换句话说，该对象已经有了接下来对各分组执行运算所需的一切信息。例如，我们可以调用 GroupBy 的 mean 方法来计算分组平均值：</p>
-<pre><code>grouped.<span class="function"><span class="title">mean</span><span class="params">()</span></span>
-#另外还可以生成层次化索引
-means = df[<span class="string">'data1'</span>].<span class="function"><span class="title">groupby</span><span class="params">([df[<span class="string">'key1'</span>],df[<span class="string">'key2'</span>]])</span></span>.<span class="function"><span class="title">mean</span><span class="params">()</span></span>
-</code></pre><h2 id="分组进行迭代">分组进行迭代</h2><pre><code><span class="keyword">for</span> name,<span class="keyword">group</span> <span class="keyword">in</span> df.groupby(<span class="string">'key1'</span>):
-    <span class="keyword">print</span> name
-    <span class="keyword">print</span> <span class="keyword">group</span>
+        <p>对于聚合，我指的是任何能够从数组产生标量值的数据转换过程。<br><a id="more"></a></p>
+<h1 id="数据聚合">数据聚合</h1><p> 在这里我们除了使用groupby自带那些函数，还可以自己定义我们的聚合函数，例如我们来求一下，最大值和最小值的差。</p>
+<pre><code>def <span class="function"><span class="title">peak_to_peak</span><span class="params">(arr)</span></span>:
+return arr.<span class="function"><span class="title">max</span><span class="params">()</span></span> - arr.<span class="function"><span class="title">min</span><span class="params">()</span></span>
+
+grouped.<span class="function"><span class="title">agg</span><span class="params">(peak_to_peak)</span></span>
+
+grouped.<span class="function"><span class="title">describe</span><span class="params">()</span></span>
+#另外还可以用一些非聚合运算例如describe
 </code></pre>
       
     </div>
@@ -227,18 +226,9 @@ means = df[<span class="string">'data1'</span>].<span class="function"><span cla
     
 <nav id="article-nav">
   
-    <a href="/2015/10/12/数据聚合/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          数据聚合
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/10/09/PLOT/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PLOT</div>
+    <a href="/2015/10/11/groupby/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">groupby</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -267,7 +257,7 @@ means = df[<span class="string">'data1'</span>].<span class="function"><span cla
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="groupby" data-title="groupby" data-url="http://yoursite.com/2015/10/11/groupby/"></div>
+	<div class="ds-thread" data-thread-key="数据聚合" data-title="数据聚合" data-url="http://yoursite.com/2015/10/12/数据聚合/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
