@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/10/12/数据聚合/index.html">
 <meta property="og:site_name" content="不如">
 <meta property="og:description" content="对于聚合，我指的是任何能够从数组产生标量值的数据转换过程。">
-<meta property="og:updated_time" content="2015-10-12T15:55:39.381Z">
+<meta property="og:updated_time" content="2015-10-12T16:55:24.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据聚合">
 <meta name="twitter:description" content="对于聚合，我指的是任何能够从数组产生标量值的数据转换过程。">
@@ -217,6 +217,21 @@ grouped.<span class="function"><span class="title">agg</span><span class="params
 
 grouped.<span class="function"><span class="title">describe</span><span class="params">()</span></span>
 #另外还可以用一些非聚合运算例如describe
+</code></pre><h1 id="面向列的多函数应用">面向列的多函数应用</h1><p>  首先我们读取一个实例数据tips.csv</p>
+<pre><code>tips = pd.<span class="function"><span class="title">read_csv</span><span class="params">(<span class="string">"tips.csv"</span>)</span></span>
+tips[<span class="string">'tip_pct'</span>] = tips[<span class="string">'tip'</span>]/tips[<span class="string">'total_bill'</span>]
+grouped = tips.<span class="function"><span class="title">groupby</span><span class="params">([<span class="string">'sex'</span>,<span class="string">'smoker'</span>])</span></span>
+</code></pre><p>我们有这样几种传入函数的方法：</p>
+<ul>
+<li>直接传入函数</li>
+<li><p>使用一个元组一次传入多个函数</p>
+<p>  grouped_pct.agg([(‘foo’,’mean’),(‘bar’,np.std)])<br>  #这样改变默认的列名<br>  #####<br>  grouped.agg({‘tip’:np.max,’size’:’sum’})<br>  result = grouped[‘tip_pct’,</p>
+<pre><code><span class="string">'total_bill'</span>].<span class="function"><span class="title">agg</span><span class="params">(functions)</span></span>
+</code></pre></li>
+</ul>
+<p>另外如果要求不同的列对应不同的函数。具体的方法是向agg传入一个字典映射。</p>
+<pre><code>grouped.<span class="function"><span class="title">agg</span><span class="params">({<span class="string">'tip'</span>:np.max,<span class="string">'size'</span>:<span class="string">'sum'</span>})</span></span>
+</code></pre><h1 id="以“无索引”的形式返回聚合数据">以“无索引”的形式返回聚合数据</h1><pre><code>这里就是加一句 as_index=<span class="literal">False</span>
 </code></pre>
       
     </div>
