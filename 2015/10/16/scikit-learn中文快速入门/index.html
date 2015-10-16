@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <title>scikit-learn中文快速入门 | 不如</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近再看scikit-learn的文档，决定把一些内容和自己的理解记录下来。本人英文水平十分有限，加之翻译时有部分遗漏，请谅解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scikit-learn中文快速入门">
+<meta property="og:url" content="http://yoursite.com/2015/10/16/scikit-learn中文快速入门/index.html">
+<meta property="og:site_name" content="不如">
+<meta property="og:description" content="最近再看scikit-learn的文档，决定把一些内容和自己的理解记录下来。本人英文水平十分有限，加之翻译时有部分遗漏，请谅解。">
+<meta property="og:updated_time" content="2015-10-16T06:10:40.474Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scikit-learn中文快速入门">
+<meta name="twitter:description" content="最近再看scikit-learn的文档，决定把一些内容和自己的理解记录下来。本人英文水平十分有限，加之翻译时有部分遗漏，请谅解。">
+  
+    <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/pp.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">刘思亮</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Heipiao" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+								<a class="linkedin" target="_blank" href="/#" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/scikit-learn/" style="font-size: 10px;">scikit-learn</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">开始写程序~</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">刘思亮</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/pp.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">刘思亮</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Heipiao" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+						<a class="linkedin" target="_blank" href="/#" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-scikit-learn中文快速入门" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/16/scikit-learn中文快速入门/" class="article-date">
+  	<time datetime="2015-10-16T04:30:09.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      scikit-learn中文快速入门
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scikit-learn/">scikit-learn</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近再看scikit-learn的文档，决定把一些内容和自己的理解记录下来。本人英文水平十分有限，加之翻译时有部分遗漏，请谅解。<br><a id="more"></a><br>原文地址：<a href="http://scikit-learn.org/stable/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.org/stable/tutorial/basic/tutorial.html</a></p>
+<h1 id="机器学习问题的设定">机器学习问题的设定</h1><p>一般来讲，机器学习可以看做思考n个样本的数据，然后尝试求解未知的数据。例如对于，对于一个多维的问题，我们可能需要考虑一系列的特征。<br>我们把机器学习分成这样几类：<br>监督学习：这些数据会带来特定的结果。而监督学习有分为以下几类：</p>
+<p><em>分类：分类是样本属于两个或更多的类别。我们通过学习已经表好label的数据来预测未标记的数据。手写字的识别就是典型的分类问题。另外分类是一种离散（相对于连续），他只能限制于样本所提供的数据。</em></p>
+<p><em>回归：如果期待的输出是一系列连续的变量，那么这个任务叫做回归。一个例子就是用年龄和体重预测salmon的长度。</em></p>
+<p>非监督学习：这种学习有一系列的X值没有相应的目标值。这种问题的学习目标是探索数据的群组。我们叫做聚类，也是在输入空间上探索数据。正如密度估计，或者为了可视化把数据从高维降到两维或三维。</p>
+<h1 id="载入数据集">载入数据集</h1><p>scikit提供了一些标准的数据集，例如iris，digits给分类问题，波士顿房价问题给回归。<br>接下来我们使用python的交互环境，载入这两个数据集：</p>
+<pre><code><span class="variable">$ </span>python
+<span class="prompt">&gt;&gt;</span>&gt; from sklearn import datasets
+<span class="prompt">&gt;&gt;</span>&gt; iris = datasets.load_iris()
+<span class="prompt">&gt;&gt;</span>&gt; digits = datasets.load_digits()
+</code></pre><p>数据集使用一种类似字典的数据结构，储存着数据。这时使用<strong>.data</strong>成员来储存这是一个数组（ n_samples, n_features），对于监督学习，需要一个或者变量作为.target成员。</p>
+<pre><code>&gt;&gt;&gt; print(digits.data)  
+[[  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">5.</span> ...,   <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">0.</span>]
+ [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">0.</span> ...,  <span class="number">10.</span>   <span class="number">0.</span>   <span class="number">0.</span>]
+ [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">0.</span> ...,  <span class="number">16.</span>   <span class="number">9.</span>   <span class="number">0.</span>]
+ ...,
+  [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">1.</span> ...,   <span class="number">6.</span>   <span class="number">0.</span>    <span class="number">0.</span>]
+  [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">2.</span> ...,  <span class="number">12.</span>   <span class="number">0.</span>   <span class="number">0.</span>]
+ [  <span class="number">0.</span>   <span class="number">0.</span>  <span class="number">10.</span> ...,  <span class="number">12.</span>   <span class="number">1.</span>   <span class="number">0.</span>]]
+&gt;&gt;&gt; digits.<span class="function">target
+<span class="title">array</span><span class="params">([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, ..., <span class="number">8</span>, <span class="number">9</span>, <span class="number">8</span>])</span></span>
+</code></pre><h1 id="学习和预测">学习和预测</h1><p>在数字识别数据集，为了预测指定的图片所代表的数字。我们把数字（0-9）分成十个可能样本集再进行预测。<br>在scikit-learn中分类问题使用fix和predict方法。<br>一个例子使用支持向量机的方法，这个构造使用了参数，但在函数执行后。我们把它看做黑盒。</p>
+<blockquote>
+<p>这里我们手动设置了gamma的值其实我们还可以自动的调参使用grid search网格搜索和cross validation交叉验证。</p>
+</blockquote>
+<pre><code><span class="tag">clf</span><span class="class">.fit</span>(<span class="tag">digits</span><span class="class">.data</span><span class="attr_selector">[:-1]</span>, <span class="tag">digits</span><span class="class">.target</span><span class="attr_selector">[:-1]</span>) 
+</code></pre><h1 id="模型持久化">模型持久化</h1><p>我们使用python库的pickle来实现持久化。</p>
+<pre><code>&gt;&gt;&gt; from sklearn import svm
+&gt;&gt;&gt; from sklearn import datasets
+&gt;&gt;&gt; clf = svm.<span class="function"><span class="title">SVC</span><span class="params">()</span></span>
+&gt;&gt;&gt; iris = datasets.<span class="function"><span class="title">load_iris</span><span class="params">()</span></span>
+&gt;&gt;&gt; X, y = iris<span class="class">.data</span>, iris<span class="class">.target</span>
+&gt;&gt;&gt; clf.<span class="function"><span class="title">fit</span><span class="params">(X, y)</span></span>  
+SVC(C=<span class="number">1.0</span>, cache_size=<span class="number">200</span>, class_weight=None, coef0=<span class="number">0.0</span>, degree=<span class="number">3</span>, gamma=<span class="number">0.0</span>,
+  kernel=<span class="string">'rbf'</span>, max_iter=-<span class="number">1</span>, probability=False, random_state=None,
+  shrinking=True, tol=<span class="number">0.001</span>, verbose=False)
+
+&gt;&gt;&gt; import pickle
+&gt;&gt;&gt; s = pickle.<span class="function"><span class="title">dumps</span><span class="params">(clf)</span></span>
+&gt;&gt;&gt; clf2 = pickle.<span class="function"><span class="title">loads</span><span class="params">(s)</span></span>
+&gt;&gt;&gt; clf2.<span class="function"><span class="title">predict</span><span class="params">(X[<span class="number">0</span>])</span></span>
+<span class="function"><span class="title">array</span><span class="params">([<span class="number">0</span>])</span></span>
+&gt;&gt;&gt; y[<span class="number">0</span>]
+<span class="number">0</span>
+</code></pre><p>对于特殊的例子，我们可以使用joblib来替换，对于大数据量效率更高。</p>
+<pre><code>&gt;&gt;&gt; from sklearn<span class="class">.externals</span> import joblib
+&gt;&gt;&gt; joblib.<span class="function"><span class="title">dump</span><span class="params">(clf, <span class="string">'filename.pkl'</span>)</span></span> 
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/16/scikit-learn-machine-learning-in-python/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">scikit-learn:machine learning in python</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="scikit-learn中文快速入门" data-title="scikit-learn中文快速入门" data-url="http://yoursite.com/2015/10/16/scikit-learn中文快速入门/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 刘思亮
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
