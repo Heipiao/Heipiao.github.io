@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <title>Support Vector Machines | 不如</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这篇文章主要介绍了支持向量机在scikit-learn包的使用。原文地址：http://scikit-learn.org/stable/modules/svm.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Support Vector Machines">
+<meta property="og:url" content="http://yoursite.com/2015/10/18/Support-Vector-Machines/index.html">
+<meta property="og:site_name" content="不如">
+<meta property="og:description" content="这篇文章主要介绍了支持向量机在scikit-learn包的使用。原文地址：http://scikit-learn.org/stable/modules/svm.html">
+<meta property="og:image" content="http://scikit-learn.org/stable/_images/plot_separating_hyperplane_unbalanced_0011.png">
+<meta property="og:image" content="http://scikit-learn.org/stable/_images/math/7325ea0226849021035c250bebb23461ccf847dc.png">
+<meta property="og:image" content="http://scikit-learn.org/stable/_images/math/a93196c3d7dc949166a2193a44426878754eaa31.png">
+<meta property="og:updated_time" content="2015-10-18T14:57:42.649Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Support Vector Machines">
+<meta name="twitter:description" content="这篇文章主要介绍了支持向量机在scikit-learn包的使用。原文地址：http://scikit-learn.org/stable/modules/svm.html">
+  
+    <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/pp.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">刘思亮</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Heipiao" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+								<a class="linkedin" target="_blank" href="/#" title="linkedin">linkedin</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ML/" style="font-size: 15px;">ML</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/scikit-learn/" style="font-size: 10px;">scikit-learn</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">开始写程序~</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">刘思亮</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/pp.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">刘思亮</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Heipiao" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+						<a class="linkedin" target="_blank" href="/#" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Support-Vector-Machines" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/18/Support-Vector-Machines/" class="article-date">
+  	<time datetime="2015-10-18T12:03:13.000Z" itemprop="datePublished">2015-10-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Support Vector Machines
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章主要介绍了支持向量机在scikit-learn包的使用。原文地址：<a href="http://scikit-learn.org/stable/modules/svm.html" target="_blank" rel="external">http://scikit-learn.org/stable/modules/svm.html</a><br><a id="more"></a></p>
+<h1 id="分类问题">分类问题</h1><p>SVC，NuSVC和线性SVC的输入是两个数组（X,Y）X是训练样本,Y是分类的标签（字符串或者实数）。</p>
+<pre><code>&gt;&gt;&gt; from sklearn import svm
+&gt;&gt;&gt; X = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>]]
+&gt;&gt;&gt; y = [<span class="number">0</span>, <span class="number">1</span>]
+&gt;&gt;&gt; clf = svm.<span class="function"><span class="title">SVC</span><span class="params">()</span></span>
+&gt;&gt;&gt; clf.<span class="function"><span class="title">fit</span><span class="params">(X, y)</span></span>  
+<span class="function"><span class="title">SVC</span><span class="params">(C=<span class="number">1.0</span>, cache_size=<span class="number">200</span>, class_weight=None, coef0=<span class="number">0.0</span>, degree=<span class="number">3</span>,gamma=<span class="number">0.0</span>, kernel=<span class="string">'rbf'</span>, max_iter=-<span class="number">1</span>, probability=False, random_state=None,shrinking=True, tol=<span class="number">0.001</span>, verbose=False)</span></span>
+
+&gt;&gt;&gt; clf.<span class="function"><span class="title">predict</span><span class="params">([[<span class="number">2</span>., <span class="number">2</span>.]])</span></span>
+<span class="function"><span class="title">array</span><span class="params">([<span class="number">1</span>])</span></span>
+</code></pre><p>支持向量机依赖于训练数据的子集，被称作支持向量。这些支持向量可以被发现在成员变量support<em>vectors</em>,support_ 和 n_support</p>
+<pre><code><span class="prompt">&gt;&gt;</span>&gt; <span class="comment"># get support vectors</span>
+<span class="prompt">&gt;&gt;</span>&gt; clf.support_vectors<span class="number">_</span>
+array([[ <span class="number">0</span>.,  <span class="number">0</span>.],
+   [ <span class="number">1</span>.,  <span class="number">1</span>.]])
+<span class="prompt">&gt;&gt;</span>&gt; <span class="comment"># get indices of support vectors</span>
+<span class="prompt">&gt;&gt;</span>&gt; clf.support<span class="number">_</span> 
+array([<span class="number">0</span>, <span class="number">1</span>]...)
+<span class="prompt">&gt;&gt;</span>&gt; <span class="comment"># get number of support vectors for each class</span>
+<span class="prompt">&gt;&gt;</span>&gt; clf.n_support<span class="number">_</span> 
+array([<span class="number">1</span>, <span class="number">1</span>]...)
+</code></pre><h2 id="多类别的分类">多类别的分类</h2><p>SVC和NuSVC使用了一对一对于多重分类问题。对于N个类别存在N*(N-1)/2个分类器。每两个训练集有一个分类器。</p>
+<pre><code><span class="prompt">&gt;&gt;</span>&gt; <span class="constant">X</span> = [[<span class="number">0</span>], [<span class="number">1</span>], [<span class="number">2</span>], [<span class="number">3</span>]]
+<span class="prompt">&gt;&gt;</span>&gt; <span class="constant">Y</span> = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
+<span class="prompt">&gt;&gt;</span>&gt; clf = svm.<span class="constant">SVC</span>()
+<span class="prompt">&gt;&gt;</span>&gt; clf.fit(<span class="constant">X</span>, <span class="constant">Y</span>) 
+<span class="constant">SVC</span>(<span class="constant">C</span>=<span class="number">1.0</span>, cache_size=<span class="number">200</span>, class_weight=<span class="constant">None</span>, coef<span class="number">0</span>=<span class="number">0</span>.<span class="number">0</span>, degree=<span class="number">3</span>,
+gamma=<span class="number">0</span>.<span class="number">0</span>, kernel=<span class="string">'rbf'</span>, max_iter=-<span class="number">1</span>, probability=<span class="constant">False</span>, random_state=<span class="constant">None</span>,
+shrinking=<span class="constant">True</span>, tol=<span class="number">0</span>.<span class="number">001</span>, verbose=<span class="constant">False</span>)
+<span class="prompt">&gt;&gt;</span>&gt; dec = clf.decision_function([[<span class="number">1</span>]])
+<span class="prompt">&gt;&gt;</span>&gt; dec.shape[<span class="number">1</span>] <span class="comment"># 4 classes: 4*3/2 = 6</span>
+<span class="number">6</span>
+</code></pre><p>另一方面，线性SVC使用了one-vs-the-res策略，因此训练n个类别，其实只是两个类别，只有一个模型被训练。</p>
+<pre><code>&gt;&gt;&gt; lin_clf = svm.<span class="function"><span class="title">LinearSVC</span><span class="params">()</span></span>
+&gt;&gt;&gt; lin_clf.<span class="function"><span class="title">fit</span><span class="params">(X, Y)</span></span> 
+LinearSVC(C=<span class="number">1.0</span>, class_weight=None, dual=True, fit_intercept=True,
+ intercept_scaling=<span class="number">1</span>, loss=<span class="string">'squared_hinge'</span>, max_iter=<span class="number">1000</span>,
+ multi_class=<span class="string">'ovr'</span>, penalty=<span class="string">'l2'</span>, random_state=None, tol=<span class="number">0.0001</span>,
+ verbose=<span class="number">0</span>)
+&gt;&gt;&gt; dec = lin_clf.<span class="function"><span class="title">decision_function</span><span class="params">([[<span class="number">1</span>]])</span></span>
+&gt;&gt;&gt; dec<span class="class">.shape</span>[<span class="number">1</span>]
+<span class="number">4</span>
+</code></pre><h2 id="分割超平面在不平衡类">分割超平面在不平衡类</h2><p>原文地址：<a href="http://scikit-learn.org/stable/auto_examples/svm/plot_separating_hyperplane_unbalanced.html" target="_blank" rel="external">http://scikit-learn.org/stable/auto_examples/svm/plot_separating_hyperplane_unbalanced.html</a><br>这里给出了一个使用SGD（stochastic Gradient Descent）梯度随机下降来代替SVC。<br><img src="http://scikit-learn.org/stable/_images/plot_separating_hyperplane_unbalanced_0011.png" alt="看不见算了"></p>
+<pre><code>print(__doc__)
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import svm
+<span class="comment">#from sklearn.linear_model import SGDClassifier</span>
+
+<span class="comment"># we create 40 separable points</span>
+<span class="constant">rng</span> = np.random.RandomState(0)
+<span class="constant">n_samples_1</span> = 1000
+<span class="constant">n_samples_2</span> = 100
+<span class="constant">X</span> = np.r_[1.5 * rng.randn(n_samples_1, 2),
+      0.5 * rng.randn(n_samples_2, 2) + [2, 2]]
+<span class="constant">y</span> = [0] * (n_samples_1) + [1] * (n_samples_2)
+
+<span class="comment"># fit the model and get the separating hyperplane</span>
+<span class="constant">clf</span> = svm.SVC(kernel='linear', C=1.0)
+clf.fit(X, y)
+
+<span class="constant">w</span> = clf.coef_[0]
+<span class="constant">a</span> = -w[0] / w[1]
+<span class="constant">xx</span> = np.linspace(-5, 5)
+<span class="constant">yy</span> = a * xx - clf.intercept_[0] / w[1]
+
+
+<span class="comment"># get the separating hyperplane using weighted classes</span>
+<span class="constant">wclf</span> = svm.SVC(kernel='linear', class_weight={1: 10})
+wclf.fit(X, y)
+
+<span class="constant">ww</span> = wclf.coef_[0]
+<span class="constant">wa</span> = -ww[0] / ww[1]
+<span class="constant">wyy</span> = wa * xx - wclf.intercept_[0] / ww[1]
+
+<span class="comment"># plot separating hyperplanes and samples</span>
+<span class="constant">h0</span> = plt.plot(xx, yy, 'k-', label='no weights')
+<span class="constant">h1</span> = plt.plot(xx, wyy, 'k--', label='with weights')
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired)
+plt.legend()
+
+plt.axis('tight')
+plt.show()
+</code></pre><p>关于如何把权重合理的表现出来，这里有一个例子：<a href="http://scikit-learn.org/stable/auto_examples/svm/plot_weighted_samples.html#example-svm-plot-weighted-samples-py" target="_blank" rel="external">http://scikit-learn.org/stable/auto_examples/svm/plot_weighted_samples.html#example-svm-plot-weighted-samples-py</a>    </p>
+<h1 id="算法复杂度">算法复杂度</h1><p>支持向量机是一个非常强大的工具，但是它要求的存储空间随着训练集增大迅速增加。<img src="http://scikit-learn.org/stable/_images/math/7325ea0226849021035c250bebb23461ccf847dc.png" alt="">到<img src="http://scikit-learn.org/stable/_images/math/a93196c3d7dc949166a2193a44426878754eaa31.png" alt="o2-o3"></p>
+<h2 id="关于参数的使用和技巧">关于参数的使用和技巧</h2><ul>
+<li><p>避免数据复制：Avoiding data copy: For SVC, SVR, NuSVC and NuSVR, if the data passed to certain methods is not C-ordered contiguous, and double precision, it will be copied before calling the underlying C implementation. You can check whether a give numpy array is C-contiguous by inspecting its flags attribute</p>
+</li>
+<li><p>对于linearSVC建议在使用double是改用SGD</p>
+</li>
+<li><p>核缓存，如果内存足够建议改变cache_size的默认值 例如500MB或者1000MB。</p>
+</li>
+<li>设置参数C，如有你的数据有很大的噪音，你应该减小C</li>
+<li>推荐规整你的数据，例如输入X在[0,1]或者[-1,+1]之间，或者标准化它让他平均值为0，记住相同的规整应该也在你的测试数据中进行</li>
+<li>参数nu对于NuSVC…</li>
+<li>在SVC中如果数据不平衡，使用set_weight=’auto’</li>
+<li>linearSVC每次会使用一个随机数选择特征，因此对于相同的数据，结果可能会不同。</li>
+<li>Using L1 penalization as provided by LinearSVC(loss=’l2’, penalty=’l1’, dual=False) yields a sparse solution, i.e. only a subset of feature weights is different from zero and contribute to the decision function. Increasing C yields a more complex model (more feature are selected). The C value that yields a “null” model (all weights equal to zero) can be calculated using l1_min_c.</li>
+</ul>
+<h1 id="核函数">核函数</h1><pre><code>&gt;&gt;&gt; linear_svc = svm.<span class="function"><span class="title">SVC</span><span class="params">(kernel=<span class="string">'linear'</span>)</span></span>
+&gt;&gt;&gt; linear_svc<span class="class">.kernel</span>
+<span class="string">'linear'</span>
+&gt;&gt;&gt; rbf_svc = svm.<span class="function"><span class="title">SVC</span><span class="params">(kernel=<span class="string">'rbf'</span>)</span></span>
+&gt;&gt;&gt; rbf_svc<span class="class">.kernel</span>
+<span class="string">'rbf'</span>
+</code></pre><h2 id="RBF的参数">RBF的参数</h2><p>RBF是比较常用的，我们来看看他的参数设定。其实就是gamme和C的设定。<br>原文地址：<a href="http://scikit-learn.org/stable/auto_examples/svm/plot_rbf_parameters.html#example-svm-plot-rbf-parameters-py" target="_blank" rel="external">http://scikit-learn.org/stable/auto_examples/svm/plot_rbf_parameters.html#example-svm-plot-rbf-parameters-py</a></p>
+<p>这个复杂的，还是换一篇写，我把整体的调参都写一写。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/16/scikit-learn中文快速入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">scikit-learn中文快速入门</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Support-Vector-Machines" data-title="Support Vector Machines" data-url="http://yoursite.com/2015/10/18/Support-Vector-Machines/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 刘思亮
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
