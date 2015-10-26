@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   
-  <title>Tag: scikit-learn | 不如</title>
+  <title>数据管道的简单分析 | 不如</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="不如">
-<meta property="og:url" content="http://yoursite.com/tags/scikit-learn/index.html">
+  <meta name="description" content="这里看见一篇外国人写的数据处理的入门，感觉很适合新手，就简单翻译一下，又加上了一点个人的理解。原文地址：http://nbviewer.ipython.org/github/justmarkham/scikit-learn-videos/blob/master/06_linear_regression.ipynb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据管道的简单分析">
+<meta property="og:url" content="http://yoursite.com/2015/10/26/数据管道的简单分析/index.html">
 <meta property="og:site_name" content="不如">
-<meta property="og:description">
+<meta property="og:description" content="这里看见一篇外国人写的数据处理的入门，感觉很适合新手，就简单翻译一下，又加上了一点个人的理解。原文地址：http://nbviewer.ipython.org/github/justmarkham/scikit-learn-videos/blob/master/06_linear_regression.ipynb">
+<meta property="og:updated_time" content="2015-10-26T14:08:55.554Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不如">
-<meta name="twitter:description">
+<meta name="twitter:title" content="数据管道的简单分析">
+<meta name="twitter:description" content="这里看见一篇外国人写的数据处理的入门，感觉很适合新手，就简单翻译一下，又加上了一点个人的理解。原文地址：http://nbviewer.ipython.org/github/justmarkham/scikit-learn-videos/blob/master/06_linear_regression.ipynb">
   
     <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
   
@@ -170,53 +171,113 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-数据管道的简单分析" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/10/16/scikit-learn中文快速入门/" class="archive-article-date">
-  	<time datetime="2015-10-16T04:30:09.000Z" itemprop="datePublished">10月 16</time>
+    <div class="article-meta">
+      <a href="/2015/10/26/数据管道的简单分析/" class="article-date">
+  	<time datetime="2015-10-26T13:40:37.000Z" itemprop="datePublished">2015-10-26</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/16/scikit-learn中文快速入门/">scikit-learn中文快速入门</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据管道的简单分析
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scikit-learn/">scikit-learn</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/data/">data</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这里看见一篇外国人写的数据处理的入门，感觉很适合新手，就简单翻译一下，又加上了一点个人的理解。原文地址：<a href="http://nbviewer.ipython.org/github/justmarkham/scikit-learn-videos/blob/master/06_linear_regression.ipynb" title="原文地址：" target="_blank" rel="external">http://nbviewer.ipython.org/github/justmarkham/scikit-learn-videos/blob/master/06_linear_regression.ipynb</a><br><a id="more"></a></p>
+<h1 id="使用Pandas读取数据">使用Pandas读取数据</h1><p>可以说numpy不如Pandas好用，本来pandas的设计就更加的实用。</p>
+<pre><code>import pandas as pd
+data =pd.<span class="function"><span class="title">read_csv</span><span class="params">(<span class="string">"...."</span>)</span></span>
+data.<span class="function"><span class="title">head</span><span class="params">()</span></span>
+</code></pre><h1 id="使用Seaborn进行可视化">使用Seaborn进行可视化</h1><pre><code>sns.pairplot(data, x_vars=<span class="comment">['TV','Radio','Newspaper']</span>, y_vars='Sales', size=7, aspect=0.7, <span class="keyword">kind</span>='reg')
+# visualize the relationship between the features and the response using scatterplots
+sns.pairplot(data, x_vars=<span class="comment">['TV','Radio','Newspaper']</span>, y_vars='Sales', size=7, aspect=0.7, <span class="keyword">kind</span>='reg')
+</code></pre><h1 id="分割出训练集">分割出训练集</h1><pre><code>from sklearn<span class="class">.cross_validation</span> import train_test_split
+X_train, X_test, y_train, y_test = <span class="function"><span class="title">train_test_split</span><span class="params">(X, y, random_state=<span class="number">1</span>)</span></span>
+</code></pre><p><strong>默认训练集和测试集比例 3：1</strong></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/20/特征工程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">特征工程</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="数据管道的简单分析" data-title="数据管道的简单分析" data-url="http://yoursite.com/2015/10/26/数据管道的简单分析/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -242,9 +303,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
