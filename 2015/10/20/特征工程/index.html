@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/10/20/特征工程/index.html">
 <meta property="og:site_name" content="不如">
 <meta property="og:description" content="看过许多kaggle竞赛的论文，无一例外讲到了Feature engineering。今天来总结一下，使用pandas来进行 Feature engineering的几种方法，这里就使用我这一段看的kaggle-101的题。">
-<meta property="og:updated_time" content="2015-10-21T04:30:04.115Z">
+<meta property="og:updated_time" content="2015-10-27T11:49:16.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="特征工程">
 <meta name="twitter:description" content="看过许多kaggle竞赛的论文，无一例外讲到了Feature engineering。今天来总结一下，使用pandas来进行 Feature engineering的几种方法，这里就使用我这一段看的kaggle-101的题。">
@@ -258,10 +258,7 @@ df[<span class="string">'Fare_bin'</span>] = pd.qcut(df[<span class="string">'Fa
 <span class="comment"># factorize or create dummies from the result</span>
 df[<span class="string">'Fare_bin_id'</span>] = pd.factorize(df[<span class="string">'Fare_bin'</span>])
 df = pd.<span class="keyword">concat</span>([df, pd.get_dummies(df[<span class="string">'Fare_bin'</span>]).<span class="keyword">rename</span>(columns=lambda x: <span class="string">'Fare_'</span> + str(x))], axis=<span class="number">1</span>)
-</code></pre><blockquote>
-<p>参考文献：<a href="http://www.ultravioletanalytics.com/2014/11/05/kaggle-titanic-competition-part-iii-variable-transformations/" target="_blank" rel="external">http://www.ultravioletanalytics.com/2014/11/05/kaggle-titanic-competition-part-iii-variable-transformations/</a></p>
-</blockquote>
-
+</code></pre>
       
     </div>
     
