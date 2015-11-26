@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ML/" style="font-size: 15px;">ML</a> <a href="/tags/data/" style="font-size: 10px;">data</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/scikit-learn/" style="font-size: 10px;">scikit-learn</a> <a href="/tags/xgboost/" style="font-size: 10px;">xgboost</a>
+						<a href="/tags/ML/" style="font-size: 15px;">ML</a> <a href="/tags/data/" style="font-size: 10px;">data</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/python/" style="font-size: 20px;">python</a> <a href="/tags/scikit-learn/" style="font-size: 10px;">scikit-learn</a> <a href="/tags/xgboost/" style="font-size: 10px;">xgboost</a>
 					</div>
 				</section>
 				
@@ -171,6 +171,71 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-windows下安装pip-和pip-upgraed配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/26/windows下安装pip-和pip-upgraed配置/" class="article-date">
+  	<time datetime="2015-11-26T07:02:07.000Z" itemprop="datePublished">2015-11-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/26/windows下安装pip-和pip-upgraed配置/">windows下安装pip 和pip --upgraed配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="windows_下进行python开发">windows 下进行python开发</h1><p>说实话在Windows下开发python配置要比较麻烦，从一开始使用pip install开始我就遇见了不少麻烦，但是由于其他工具远比Linux下方便，自己也没钱买mac。还是有必要配置好开发环境的说。</p>
+<h2 id="安装pip">安装pip</h2><p>这步没啥难度，直接照网上说的做没有任何问题，我就记录下已经出问题的地方。</p>
+<p>#unable to find vcvarsall.bat#<br>这个问题比较经典，其实的原因是python和c的接口已经指定了平台为90，但是我们用的VS版本已经是110或者120了自然会有问题。然后谷歌出的方法是：</p>
+<blockquote>
+<p>Update: Comments below point out that the instructions here may be dangerous. Consider using the Visual C++ 2008 Express edition and NOT using the original answer below. Original error message means Visual C++ 2008 is not installed</p>
+<p>Execute the following command based on the version of Visual Studio installed:</p>
+<p>Visual Studio 2010 (VS10): SET VS90COMNTOOLS=%VS100COMNTOOLS%</p>
+<p>Visual Studio 2012 (VS11): SET VS90COMNTOOLS=%VS110COMNTOOLS%</p>
+<p>Visual Studio 2013 (VS12): SET VS90COMNTOOLS=%VS120COMNTOOLS%<br>但是在我的电脑上这种设置却没有作用，后来发现缺少vs支持python的插件，所以去微软官网下载。<a href="http://download.microsoft.com/download/7/9/6/796EF2E4-801B-4FC4-AB28-B59FBF6D907B/VCForPython27.msi" title="下载地址" target="_blank" rel="external">http://download.microsoft.com/download/7/9/6/796EF2E4-801B-4FC4-AB28-B59FBF6D907B/VCForPython27.msi</a><br>然后就ok了</p>
+<p>#douban源#<br>最后说一下如何更换pip源，其实就是后面加上 pip install numpy -i <a href="http://pypi.douban.com/simple" target="_blank" rel="external">http://pypi.douban.com/simple</a> 话说豆瓣这么文艺的网站，在程序员眼中只是个源。<br><strong>总之，Windows开发python真的挺麻烦，真的需要个mac</strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pip/">pip</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-pandas-function-and-mapping" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -654,64 +719,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/10/16/scikit-learn中文快速入门/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-scikit-learn-machine-learning-in-python" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/16/scikit-learn-machine-learning-in-python/" class="article-date">
-  	<time datetime="2015-10-15T16:16:09.000Z" itemprop="datePublished">2015-10-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/16/scikit-learn-machine-learning-in-python/">scikit-learn:machine learning in python</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>为了学习sickit包，我翻译了官方的一篇文档，原文地址<a href="http://www.scipy-lectures.org/advanced/scikit-learn/index.html#loading-an-example-dataset">http://www.scipy-lectures.org/advanced/scikit-learn/index.html#loading-an-example-dataset</a><br>我也是初学者，很多地方按照自己想法翻译，其中我觉得没有意思的地方我还自己去掉了，请谅解。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/16/scikit-learn-machine-learning-in-python/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

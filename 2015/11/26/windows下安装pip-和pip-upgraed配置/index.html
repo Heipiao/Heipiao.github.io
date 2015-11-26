@@ -4,18 +4,24 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   
-  <title>groupby | 不如</title>
+  <title>windows下安装pip 和pip --upgraed配置 | 不如</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
+  <meta name="description" content="windows 下进行python开发说实话在Windows下开发python配置要比较麻烦，从一开始使用pip install开始我就遇见了不少麻烦，但是由于其他工具远比Linux下方便，自己也没钱买mac。还是有必要配置好开发环境的说。
+安装pip这步没啥难度，直接照网上说的做没有任何问题，我就记录下已经出问题的地方。
+#unable to find vcvarsall.bat#这个问题比较经">
 <meta property="og:type" content="article">
-<meta property="og:title" content="groupby">
-<meta property="og:url" content="http://yoursite.com/2015/10/11/groupby/index.html">
+<meta property="og:title" content="windows下安装pip 和pip --upgraed配置">
+<meta property="og:url" content="http://yoursite.com/2015/11/26/windows下安装pip-和pip-upgraed配置/index.html">
 <meta property="og:site_name" content="不如">
-<meta property="og:description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
-<meta property="og:updated_time" content="2015-10-11T16:18:15.530Z">
+<meta property="og:description" content="windows 下进行python开发说实话在Windows下开发python配置要比较麻烦，从一开始使用pip install开始我就遇见了不少麻烦，但是由于其他工具远比Linux下方便，自己也没钱买mac。还是有必要配置好开发环境的说。
+安装pip这步没啥难度，直接照网上说的做没有任何问题，我就记录下已经出问题的地方。
+#unable to find vcvarsall.bat#这个问题比较经">
+<meta property="og:updated_time" content="2015-11-26T12:20:27.434Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="groupby">
-<meta name="twitter:description" content="对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。">
+<meta name="twitter:title" content="windows下安装pip 和pip --upgraed配置">
+<meta name="twitter:description" content="windows 下进行python开发说实话在Windows下开发python配置要比较麻烦，从一开始使用pip install开始我就遇见了不少麻烦，但是由于其他工具远比Linux下方便，自己也没钱买mac。还是有必要配置好开发环境的说。
+安装pip这步没啥难度，直接照网上说的做没有任何问题，我就记录下已经出问题的地方。
+#unable to find vcvarsall.bat#这个问题比较经">
   
     <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
   
@@ -171,11 +177,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-groupby" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-windows下安装pip-和pip-upgraed配置" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/10/11/groupby/" class="article-date">
-  	<time datetime="2015-10-11T15:40:46.000Z" itemprop="datePublished">2015-10-11</time>
+      <a href="/2015/11/26/windows下安装pip-和pip-upgraed配置/" class="article-date">
+  	<time datetime="2015-11-26T07:02:07.000Z" itemprop="datePublished">2015-11-26</time>
 </a>
     </div>
   
@@ -188,7 +194,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      groupby
+      windows下安装pip 和pip --upgraed配置
     </h1>
   
 
@@ -197,7 +203,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pip/">pip</a></li></ul>
 	</div>
 
         
@@ -208,17 +214,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对数据集进行分组并对各组应用一个函数（无论是聚合还是转换），这是数据分析工作中的重要环节。在数据集准备好之后，通常的任务就是计算分组统计或生成透视表。pandas 提供了一个灵活高效的 groupby 功能，它使我们能以一种自然的方式对数据集进行切片、切块、摘要等操作。<br><a id="more"></a></p>
-<h2 id="分组">分组</h2><p>这里我们使用groupby函数来实现这个功能。</p>
-<pre><code>grouped = df[<span class="string">'data1'</span>].<span class="function"><span class="title">groupby</span><span class="params">(df[<span class="string">'key1'</span>])</span></span>
-</code></pre><p>变量 grouped 是一个 GroupBy 对象。它实际上还没有进行任何计算，只是含有一些有关分组键 df[‘key1’]的中间数据而已。换句话说，该对象已经有了接下来对各分组执行运算所需的一切信息。例如，我们可以调用 GroupBy 的 mean 方法来计算分组平均值：</p>
-<pre><code>grouped.<span class="function"><span class="title">mean</span><span class="params">()</span></span>
-#另外还可以生成层次化索引
-means = df[<span class="string">'data1'</span>].<span class="function"><span class="title">groupby</span><span class="params">([df[<span class="string">'key1'</span>],df[<span class="string">'key2'</span>]])</span></span>.<span class="function"><span class="title">mean</span><span class="params">()</span></span>
-</code></pre><h2 id="分组进行迭代">分组进行迭代</h2><pre><code><span class="keyword">for</span> name,<span class="keyword">group</span> <span class="keyword">in</span> df.groupby(<span class="string">'key1'</span>):
-    <span class="keyword">print</span> name
-    <span class="keyword">print</span> <span class="keyword">group</span>
-</code></pre>
+        <h1 id="windows_下进行python开发">windows 下进行python开发</h1><p>说实话在Windows下开发python配置要比较麻烦，从一开始使用pip install开始我就遇见了不少麻烦，但是由于其他工具远比Linux下方便，自己也没钱买mac。还是有必要配置好开发环境的说。</p>
+<h2 id="安装pip">安装pip</h2><p>这步没啥难度，直接照网上说的做没有任何问题，我就记录下已经出问题的地方。</p>
+<p>#unable to find vcvarsall.bat#<br>这个问题比较经典，其实的原因是python和c的接口已经指定了平台为90，但是我们用的VS版本已经是110或者120了自然会有问题。然后谷歌出的方法是：</p>
+<blockquote>
+<p>Update: Comments below point out that the instructions here may be dangerous. Consider using the Visual C++ 2008 Express edition and NOT using the original answer below. Original error message means Visual C++ 2008 is not installed</p>
+<p>Execute the following command based on the version of Visual Studio installed:</p>
+<p>Visual Studio 2010 (VS10): SET VS90COMNTOOLS=%VS100COMNTOOLS%</p>
+<p>Visual Studio 2012 (VS11): SET VS90COMNTOOLS=%VS110COMNTOOLS%</p>
+<p>Visual Studio 2013 (VS12): SET VS90COMNTOOLS=%VS120COMNTOOLS%<br>但是在我的电脑上这种设置却没有作用，后来发现缺少vs支持python的插件，所以去微软官网下载。<a href="http://download.microsoft.com/download/7/9/6/796EF2E4-801B-4FC4-AB28-B59FBF6D907B/VCForPython27.msi" title="下载地址" target="_blank" rel="external">http://download.microsoft.com/download/7/9/6/796EF2E4-801B-4FC4-AB28-B59FBF6D907B/VCForPython27.msi</a><br>然后就ok了</p>
+<p>#douban源#<br>最后说一下如何更换pip源，其实就是后面加上 pip install numpy -i <a href="http://pypi.douban.com/simple" target="_blank" rel="external">http://pypi.douban.com/simple</a> 话说豆瓣这么文艺的网站，在程序员眼中只是个源。<br><strong>总之，Windows开发python真的挺麻烦，真的需要个mac</strong></p>
+</blockquote>
+
       
     </div>
     
@@ -227,18 +234,9 @@ means = df[<span class="string">'data1'</span>].<span class="function"><span cla
     
 <nav id="article-nav">
   
-    <a href="/2015/10/12/数据聚合/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          数据聚合
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/10/09/PLOT/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PLOT</div>
+    <a href="/2015/11/13/pandas-function-and-mapping/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">pandas function and mapping</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -267,7 +265,7 @@ means = df[<span class="string">'data1'</span>].<span class="function"><span cla
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="groupby" data-title="groupby" data-url="http://yoursite.com/2015/10/11/groupby/"></div>
+	<div class="ds-thread" data-thread-key="windows下安装pip-和pip-upgraed配置" data-title="windows下安装pip 和pip --upgraed配置" data-url="http://yoursite.com/2015/11/26/windows下安装pip-和pip-upgraed配置/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
