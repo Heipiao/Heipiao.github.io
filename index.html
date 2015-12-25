@@ -222,8 +222,23 @@ print housing<span class="class">.DESCR</span> <span class="id">#output</span> o
 np.<span class="function"><span class="title">bincount</span><span class="params">(classification_set[<span class="number">1</span>])</span></span>
 </code></pre><p>聚类也将被创建，这里有几个算法，创建数据集。例如blobs函数十分容易创建使用K-Means模型：</p>
 <pre><code>blobs = d.<span class="function"><span class="title">make_blobs</span><span class="params">()</span></span>
-</code></pre><h2 id="如何工作的">如何工作的</h2><p>我们通过看源码来看看scikit如何实现一个回归数据集，为定义的变量被假定成缺省值。令人惊喜的是这一过程实际上十分简单。<br>首先，一个特定大小的随机数组被创建：<br>     X = np.random.randn(n_samples, n_features)<br>     ground_truth = np.zeroes((np_samples, n_target))<br>     ground_truth[:n_informative, :] = 100*np.random.rand(n_informative，n_targets)<br>     y = np.dot(X, ground_truth) + bias<br>因为Numpy的广播特征，偏置值是一个数值，会被添加到每一个样例。</p>
-
+</code></pre><h2 id="如何工作的">如何工作的</h2><p>我们通过看源码来看看scikit如何实现一个回归数据集，为定义的变量被假定成缺省值。令人惊喜的是这一过程实际上十分简单。<br>首先，一个特定大小的随机数组被创建：<br>     X = np.random.randn(n_samples, n_features)<br>     ground_truth = np.zeroes((np_samples, n_target))<br>     ground_truth[:n_informative, :] = 100*np.random.rand(n_informative，n_targets)<br>     y = np.dot(X, ground_truth) + bias<br>因为Numpy的广播特征，偏置值是一个数值，会被添加到每一个样例。最后在对每一样例添加噪音，我们就有回归的数值了。</p>
+<h1 id="规整数据到标准格式">规整数据到标准格式</h1><p>处理过程最好将数据规整成为标准格式。标准格式可能是最重要的特征所有的数据。如果你接触过统计。那你就要考虑Z-评分。</p>
+<h2 id="做好准备-1">做好准备</h2><p>规整数据这个过程十分重要，一系列机器学习算法，对于不同的规格表现的不同（甚至不正确）。例如：支持向量机如果数据没有规整则性能十分差，因为他优化的时候使用了一个距离函数，对于0-10到0-1。<br>我们首先需要引用preprocessing这个模块。</p>
+<pre><code><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np <span class="comment"># we'll need it later</span>
+</code></pre><h2 id="怎样使用">怎样使用</h2><p>对于boston数据集，运行下面的命令行：</p>
+<pre><code>X[:, :<span class="number">3</span>].mean(axis=<span class="number">0</span>) <span class="preprocessor">#mean of the first <span class="number">3</span> features</span>
+<span class="built_in">array</span>([ <span class="number">3.59376071</span>, <span class="number">11.36363636</span>, <span class="number">11.13677866</span>])
+X[:, :<span class="number">3</span>].<span class="built_in">std</span>(axis=<span class="number">0</span>)
+<span class="built_in">array</span>([ <span class="number">8.58828355</span>, <span class="number">23.29939569</span>, <span class="number">6.85357058</span>])
+</code></pre><p>这里实际上有很多初始化的过程，首先第一个特征有最小的平均值，但是变化超过了第三特征，这个第二特征，有最大的平均值和标准差，这有最广的值：</p>
+<pre><code>X_2 = preprocessing.<span class="function"><span class="title">scale</span><span class="params">(X[:, :<span class="number">3</span>])</span></span>
+X_2.<span class="function"><span class="title">mean</span><span class="params">(axis=<span class="number">0</span>)</span></span>
+<span class="function"><span class="title">array</span><span class="params">([ <span class="number">6.34099712</span>e-<span class="number">17</span>, -<span class="number">6.34319123</span>e-<span class="number">16</span>, -<span class="number">2.68291099</span>e-<span class="number">15</span>])</span></span>
+X_2.<span class="function"><span class="title">std</span><span class="params">(axis=<span class="number">0</span>)</span></span>
+<span class="function"><span class="title">array</span><span class="params">([ <span class="number">1</span>., <span class="number">1</span>., <span class="number">1</span>.])</span></span>
+</code></pre><h2 id="#">#</h2>
       
     </div>
     
