@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/24/scikit-cookbook-中文翻译/index.html">
 <meta property="og:site_name" content="不如">
 <meta property="og:description" content="第一章：预处理流程简介这一章讨论了数据准备和预建模维度约简。这些不是机器学习最有吸引力的部分，但是它们决定了模型是否成功。这里有三个主要的部分，首先，我们创造了假的数据。这个看起来很琐碎，但是创造假的数据是一个重要的步骤在模型测试。在我们使用算法时十分实用的，为了完整性，我们创造了数据。第二，我们广泛的转化数据作为处理的过程包括了明确的变量编码。第三，我们讨论了大量特征被观察的情景。这一章，尤其前">
-<meta property="og:updated_time" content="2015-12-24T16:38:43.109Z">
+<meta property="og:updated_time" content="2015-12-25T15:29:35.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scikit cookbook 中文翻译">
 <meta name="twitter:description" content="第一章：预处理流程简介这一章讨论了数据准备和预建模维度约简。这些不是机器学习最有吸引力的部分，但是它们决定了模型是否成功。这里有三个主要的部分，首先，我们创造了假的数据。这个看起来很琐碎，但是创造假的数据是一个重要的步骤在模型测试。在我们使用算法时十分实用的，为了完整性，我们创造了数据。第二，我们广泛的转化数据作为处理的过程包括了明确的变量编码。第三，我们讨论了大量特征被观察的情景。这一章，尤其前">
@@ -213,7 +213,26 @@
 <h2 id="做好准备">做好准备</h2><p>这里我们使用datasets模块，使用以下的命令：</p>
 <pre><code><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
-</code></pre><h2 id="如何去做">如何去做</h2><p>这里主要有两种数据模型，小型的数据集，已datasets.load_<em>的形式，和缺省的形式代表较大的数据集。</em>更多情况，最好测试模型与算法使用与现实情况相符合的复杂度*</p>
+</code></pre><h2 id="如何去做">如何去做</h2><p>这里主要有两种数据模型，小型的数据集，已datasets.load_的形式，和缺省的形式代表较大的数据集。<em>更多情况，最好测试模型与算法使用与现实情况相符合的复杂度</em>。<br>首先载入boston数据集，并测试：</p>
+<pre><code>boston = datasets.<span class="function"><span class="title">load_boston</span><span class="params">()</span></span>
+print boston<span class="class">.DESCR</span> <span class="id">#output</span> omitted due to length
+</code></pre><p>接下来，fetch一个数据集：</p>
+<pre><code>housing = datasets.<span class="function"><span class="title">fetch_california_housing</span><span class="params">()</span></span>
+downloading Cal. housing from http:<span class="comment">//lib.stat.cmu.edu [...]</span>
+print housing<span class="class">.DESCR</span> <span class="id">#output</span> omitted due to length
+</code></pre><h2 id="怎样工作">怎样工作</h2><p>当数据集被载入的时候，它并不是以NumPy数组的形式。它的类型是Bunch。这时一种python普通的数据结构。他是一个基本的字典和键值，作为类的属性。<br>为了使用数据的属性。Numpy的数组包含不独立的变量，目标属性是独立的变量。</p>
+<pre><code>X, y = boston.<span class="type">data</span>, boston.<span class="type">target</span>
+</code></pre><p>这里有Bunch对象的可能的实现，自己实现也不复杂， scikit-learn在base模块定义。我们可以参见：<a href="https://github.com/scikit-learn/scikit-learn/blob/" target="_blank" rel="external"> https://github.com/scikit-learn/scikit-learn/blob/</a></p>
+<h2 id="更多的事">更多的事</h2><p> UCI Machine Learning Repository是一个实例数据集，更多的数据集在scikit_learn，这里有很多可以使用的数据。另外的实现是KDD，本地政府和kaggle竞赛。</p>
+<h1 id="创建实例数据作为分析">创建实例数据作为分析</h1><p>在这一节我们使用scikit创造一些数据作为测试。</p>
+<h2 id="开始准备">开始准备</h2><p>与内置数据十分相似，获取新数据和创造实例数据。这个函数约定命名 make_<the data="" set="">，这个数据是纯粹手工的。<br>为了储存类型，import数据集作为d：<br>     import sklearn.datasets as d<br>     import numpy as np</the></p>
+<h2 id="怎样去做">怎样去做</h2><p>这一节我们将创造几个数据集，这节将证实所谓的数据特征，另外对于样例数据集，我们将展示必须的特征使用一些算法。<br>首先stalwart 回归：<br>     reg_data = d.make_regression()<br>默认情况下，这里会产生100x100的矩阵，100个样例的100个特征。然而，只有10个特征是必须的目标数据产生，第二个元祖成员的目标变量。这里我们，举个例子为了生成1000x10的矩阵和五个特征，偏执值是1.0和2个目标，应该执行下面的命令：<br>    complex_reg_data = d.make_regression(1000, 10, 5, 2, 1.0)</p>
+<p>分类的数据集创建也十分简单。这里十分简单去创建基础的分类集，但是基础的情况很少在实践中使用大多数使用者不会转化，大多数的转化是假的。所以，在不平衡数据集中探索分类是很有用的。</p>
+<pre><code>classification_set = d.<span class="function"><span class="title">make_classification</span><span class="params">(weights=[<span class="number">0.1</span>])</span></span>
+np.<span class="function"><span class="title">bincount</span><span class="params">(classification_set[<span class="number">1</span>])</span></span>
+</code></pre><p>聚类也将被创建，这里有几个算法，创建数据集。例如blobs函数十分容易创建使用K-Means模型：</p>
+<pre><code>blobs = d.<span class="function"><span class="title">make_blobs</span><span class="params">()</span></span>
+</code></pre><h2 id="如何工作的">如何工作的</h2><p>我们通过看源码来看看scikit如何实现一个回归数据集，为定义的变量被假定成缺省值。令人惊喜的是这一过程实际上十分简单。<br>首先，一个特定大小的随机数组被创建：<br>     X = np.random.randn(n_samples, n_features)<br>     ground_truth = np.zeroes((np_samples, n_target))<br>     ground_truth[:n_informative, :] = 100*np.random.rand(n_informative，n_targets)<br>     y = np.dot(X, ground_truth) + bias<br>因为Numpy的广播特征，偏置值是一个数值，会被添加到每一个样例。</p>
 
       
     </div>
