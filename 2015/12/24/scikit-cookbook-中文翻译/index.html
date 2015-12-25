@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/24/scikit-cookbook-中文翻译/index.html">
 <meta property="og:site_name" content="不如">
 <meta property="og:description" content="第一章：预处理流程简介这一章讨论了数据准备和预建模维度约简。这些不是机器学习最有吸引力的部分，但是它们决定了模型是否成功。这里有三个主要的部分，首先，我们创造了假的数据。这个看起来很琐碎，但是创造假的数据是一个重要的步骤在模型测试。在我们使用算法时十分实用的，为了完整性，我们创造了数据。第二，我们广泛的转化数据作为处理的过程包括了明确的变量编码。第三，我们讨论了大量特征被观察的情景。这一章，尤其前">
-<meta property="og:updated_time" content="2015-12-25T16:01:42.183Z">
+<meta property="og:updated_time" content="2015-12-25T16:59:00.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scikit cookbook 中文翻译">
 <meta name="twitter:description" content="第一章：预处理流程简介这一章讨论了数据准备和预建模维度约简。这些不是机器学习最有吸引力的部分，但是它们决定了模型是否成功。这里有三个主要的部分，首先，我们创造了假的数据。这个看起来很琐碎，但是创造假的数据是一个重要的步骤在模型测试。在我们使用算法时十分实用的，为了完整性，我们创造了数据。第二，我们广泛的转化数据作为处理的过程包括了明确的变量编码。第三，我们讨论了大量特征被观察的情景。这一章，尤其前">
@@ -248,7 +248,19 @@ X_2.<span class="function"><span class="title">mean</span><span class="params">(
 <span class="function"><span class="title">array</span><span class="params">([ <span class="number">6.34099712</span>e-<span class="number">17</span>, -<span class="number">6.34319123</span>e-<span class="number">16</span>, -<span class="number">2.68291099</span>e-<span class="number">15</span>])</span></span>
 X_2.<span class="function"><span class="title">std</span><span class="params">(axis=<span class="number">0</span>)</span></span>
 <span class="function"><span class="title">array</span><span class="params">([ <span class="number">1</span>., <span class="number">1</span>., <span class="number">1</span>.])</span></span>
-</code></pre><h2 id="#">#</h2>
+</code></pre><h2 id="如何工作">如何工作</h2><p>中心规整的方法极其简单，就是<strong>减去平均值除以标准差</strong>。<br>另外这个函数可以很简单的被调用，尤其适用接下来的管道，对于独立的规整数据同样很实用。</p>
+<pre><code>my_scaler = preprocessing.<span class="function"><span class="title">StandardScaler</span><span class="params">()</span></span>
+my_scaler.<span class="function"><span class="title">fit</span><span class="params">(X[:, :<span class="number">3</span>])</span></span>
+my_scaler.<span class="function"><span class="title">transform</span><span class="params">(X[:, :<span class="number">3</span>])</span></span>.<span class="function"><span class="title">mean</span><span class="params">(axis=<span class="number">0</span>)</span></span>
+<span class="function"><span class="title">array</span><span class="params">([ <span class="number">6.34099712</span>e-<span class="number">17</span>, -<span class="number">6.34319123</span>e-<span class="number">16</span>, -<span class="number">2.68291099</span>e-<span class="number">15</span>])</span></span>
+</code></pre><p>让特征的平均数是0，标准差是1，不是唯一的有用的规整方法。这里有MinMaxScaler类，规整数据到特定的范围：</p>
+<pre><code>my_minmax_scaler = preprocessing.<span class="function"><span class="title">MinMaxScaler</span><span class="params">()</span></span>
+my_minmax_scaler.<span class="function"><span class="title">fit</span><span class="params">(X[:, :<span class="number">3</span>])</span></span>
+my_minmax_scaler.<span class="function"><span class="title">transform</span><span class="params">(X[:, :<span class="number">3</span>])</span></span>.<span class="function"><span class="title">max</span><span class="params">(axis=<span class="number">0</span>)</span></span>
+<span class="function"><span class="title">array</span><span class="params">([ <span class="number">1</span>., <span class="number">1</span>., <span class="number">1</span>.])</span></span>
+</code></pre><p>这里也十分容易的改变均值和标准差的缺省值。</p>
+<pre><code>my_odd_scaler = preprocessing.<span class="function"><span class="title">MinMaxScaler</span><span class="params">(feature_range=(-<span class="number">3.14</span>,<span class="number">3.14</span>)</span></span>)
+</code></pre>
       
     </div>
     
