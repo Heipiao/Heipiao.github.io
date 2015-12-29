@@ -250,6 +250,25 @@ my_minmax_scaler.<span class="function"><span class="title">transform</span><spa
 <span class="function"><span class="title">array</span><span class="params">([ <span class="number">1</span>., <span class="number">1</span>., <span class="number">1</span>.])</span></span>
 </code></pre><p>这里也十分容易的改变均值和标准差的缺省值。</p>
 <pre><code>my_odd_scaler = preprocessing.<span class="function"><span class="title">MinMaxScaler</span><span class="params">(feature_range=(-<span class="number">3.14</span>,<span class="number">3.14</span>)</span></span>)
+</code></pre><p>另外一种选择是，正则化。这会让每一个样例长度为1.这和之前的处理不一样，我们使用以下的命令：</p>
+<pre><code>normalized_X = preprocessing.<span class="function"><span class="title">normalize</span><span class="params">(X[:, :<span class="number">3</span>])</span></span>
+</code></pre><p>这并不是有明显的作用，对于三个点的欧几里德距离（1，1，0），（3，3，0），（1，-1，0）第一个和第三个向量距离比第一个和第二个之间的距离短，虽然1和3是正交的然而第一个和第二个点的，虽然距离不正则化的数据会误导。</p>
+<h1 id="更多">更多</h1><p>这里可以使用StandardScaler规整平均值，例如我们可以简单地实现特定的转化。</p>
+<pre><code>my_useless_scaler = preprocessing.<span class="function"><span class="title">StandardScaler</span><span class="params">(with_mean=False, with_std=False)</span></span>
+transformed_sd = my_useless_scaler.<span class="function"><span class="title">fit_transform</span><span class="params">(X[:, :<span class="number">3</span>])</span></span>.<span class="function"><span class="title">std</span><span class="params">(axis=<span class="number">0</span>)</span></span>
+original_sd = X[:, :<span class="number">3</span>].<span class="function"><span class="title">std</span><span class="params">(axis=<span class="number">0</span>)</span></span>
+np.<span class="function"><span class="title">array_equal</span><span class="params">(transformed_sd, original_sd)</span></span>
+</code></pre><h2 id="处理稀疏矩阵插值">处理稀疏矩阵插值</h2><p>稀疏矩阵不能被处理，当处理规整的时候。数据应该从0转化成非0值</p>
+<pre><code>matrix =<span class="function"> scipy.sparse.eye(</span>1000<span class="function">)</span>
+preprocessing.scale(matrix<span class="function">)</span>
+ValueError: Cannot center<span class="instruction"> sparse </span>matrices: pass 'with_mean=False' instead
+See docstring for motivation<span class="instruction"> and </span>alternatives.
+</code></pre><p>另外一种选择是使用todense（）函数，不过他有潜在的内存错误风险。</p>
+<h1 id="使用阀值创建二进制特征">使用阀值创建二进制特征</h1><p>上一节，我们把数据都转化成了正规的形式，现在我们来考虑另外一种转化。</p>
+<h2 id="准备">准备</h2><p>创建二进制特征是一个非常有用的方法。但是使用的时候要特别的小心。我们使用boston数据集来创造二进制输出。<br>第一，载入数据集：</p>
+<pre><code><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets
+boston = datasets.load_boston()
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
 </code></pre>
       
     </div>
