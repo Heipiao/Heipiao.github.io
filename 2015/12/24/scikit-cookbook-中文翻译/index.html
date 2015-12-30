@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/24/scikit-cookbook-中文翻译/index.html">
 <meta property="og:site_name" content="不如">
 <meta property="og:description" content="第一章：预处理流程简介这一章讨论了数据准备和预建模维度约简。这些不是机器学习最有吸引力的部分，但是它们决定了模型是否成功。这里有三个主要的部分，首先，我们创造了假的数据。这个看起来很琐碎，但是创造假的数据是一个重要的步骤在模型测试。在我们使用算法时十分实用的，为了完整性，我们创造了数据。第二，我们广泛的转化数据作为处理的过程包括了明确的变量编码。第三，我们讨论了大量特征被观察的情景。这一章，尤其前">
-<meta property="og:updated_time" content="2015-12-28T17:31:03.721Z">
+<meta property="og:updated_time" content="2015-12-30T12:42:21.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scikit cookbook 中文翻译">
 <meta name="twitter:description" content="第一章：预处理流程简介这一章讨论了数据准备和预建模维度约简。这些不是机器学习最有吸引力的部分，但是它们决定了模型是否成功。这里有三个主要的部分，首先，我们创造了假的数据。这个看起来很琐碎，但是创造假的数据是一个重要的步骤在模型测试。在我们使用算法时十分实用的，为了完整性，我们创造了数据。第二，我们广泛的转化数据作为处理的过程包括了明确的变量编码。第三，我们讨论了大量特征被观察的情景。这一章，尤其前">
@@ -279,7 +279,13 @@ See docstring for motivation<span class="instruction"> and </span>alternatives.
 <pre><code><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets
 boston = datasets.load_boston()
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
-</code></pre>
+</code></pre><h2 id="如何去做-1">如何去做</h2><p>与数据规整一样，我们也有两种方法：<br>    preprocessing.binarize #(a function)<br>    preprocessing.Binarizer #(a class)<br>这个数据集目标变量是房价，这个数据集是对回归的测试和做接下的预测，现在考虑如果我们只使用回归来预测。为了完成这个，我们设置平均值的阀值，如果大于阀值则为1，小于则为0.<br>    from sklearn import preprocessing<br>    new_target = preprocessing.binarize(boston.target,threshold=boston.target.mean())<br>    new_target[:5]<br>    array([ 1., 0., 1., 1., 1.])</p>
+<p>然后我们检查，它的结果是否正确。<br>    (boston.target[:5] &gt; boston.target.mean()).astype(int)<br>    array([1, 0, 1, 1, 1])<br>如果我们使用内置的Binarizers类：<br>    bin = preprocessing.Binarizer(boston.target.mean())<br>    new_target = bin.fit_transform(boston.target)<br>    new_target[:5]<br>    array([ 1., 0., 1., 1., 1.])</p>
+<h2 id="如何工作-1">如何工作</h2><p>这个太明显了，使用了条件语句判断是否这个值大于阀值，大于是1.</p>
+<h2 id="更多-1">更多</h2><p>我们来使用fit方法来处理矩阵。</p>
+<h2 id="处理目录变量">处理目录变量</h2><p>目录变量一方面可以提供大量有价值的信息，另一方面它很有可能是文本变量我们要把文本和intergers类型联系起来。<br>所以我们需要使用实数代替文本，但是我们实际上不能用id这个字段代表他们。因为我们要避免相同的问题在创建二元特征时。如果数据是连续的，这样一定会打断连续。</p>
+<h1 id="准备-1">准备</h1><p>boston数据集在这里并不适用，这里我们使用iris数据集。<br>    from sklearn import datasets<br>    iris = datasets.load_iris()<br>    X = iris.data<br>    y = iris.target<br>接下来我们合并数据集成为一个数据集。<br>    import numpy as np<br>    d = np.column_stack((x,y))<br>    from sklearn import preprocessing<br>    text_encoder = preprocessing.OneHotEncoder()<br>    text_encoder.fit_transform(d[:, -1:]).toarray()[:5]</p>
+<h2 id="如何工作-2">如何工作</h2>
       
     </div>
     
