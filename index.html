@@ -275,7 +275,93 @@ boston = datasets.load_boston()
 <h2 id="更多-1">更多</h2><p>我们来使用fit方法来处理矩阵。</p>
 <h2 id="处理目录变量">处理目录变量</h2><p>目录变量一方面可以提供大量有价值的信息，另一方面它很有可能是文本变量我们要把文本和intergers类型联系起来。<br>所以我们需要使用实数代替文本，但是我们实际上不能用id这个字段代表他们。因为我们要避免相同的问题在创建二元特征时。如果数据是连续的，这样一定会打断连续。</p>
 <h1 id="准备-1">准备</h1><p>boston数据集在这里并不适用，这里我们使用iris数据集。<br>    from sklearn import datasets<br>    iris = datasets.load_iris()<br>    X = iris.data<br>    y = iris.target<br>接下来我们合并数据集成为一个数据集。<br>    import numpy as np<br>    d = np.column_stack((x,y))<br>    from sklearn import preprocessing<br>    text_encoder = preprocessing.OneHotEncoder()<br>    text_encoder.fit_transform(d[:, -1:]).toarray()[:5]</p>
-<h2 id="如何工作-2">如何工作</h2>
+<h2 id="如何工作-2">如何工作</h2><p>编码为每一个目录性变量创建了附加的特征，把值返回稀疏矩阵。这个结果在系数矩阵中被定义，每一行新特征是全0，除了与特征有关的那一列。因此很有意义使用稀疏矩阵存储数据。<br>text_encoder目前是一个标准的scikit模型，我们可以多次使用他。</p>
+<pre><code>text_encoder.transform(np.ones((<span class="number">3</span>, <span class="number">1</span>))).toarray()
+<span class="built_in">array</span>([[ <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>],
+[ <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>],
+[ <span class="number">0.</span>, <span class="number">1.</span>, <span class="number">0.</span>]])
+</code></pre><h2 id="更多-2">更多</h2><p>DictVectorizers是一个好的选择，如果让你的程序和scikit库的关联性减小。同时对于复杂的情况patsy是一个很好的选择。<br>    from sklearn.feature_extraction import DictVectorizer<br>    dv = DictVectorizer()<br>    my_dict = [{‘species’: iris.target_names[i]} for i in y]<br>    dv.fit_transform(my_dict).toarray()[:5]<br>    array([[ 1., 0., 0.],<br>    [ 1., 0., 0.],<br>    [ 1., 0., 0.],<br>    [ 1., 0., 0.],<br>    [ 1., 0., 0.]])<br>patsy是另一个包。经常用来连接StatsModels，patsy把字符串变成矩阵。<br>     import patsy<br>    patsy.dmatrix(“0 + C(species)”, {‘species’: iris.target})</p>
+<h1 id="二进制标签特征">二进制标签特征</h1><p>在这一节，我们使用不同的思路看待目录变量。一般只有一个或两个标签比较重要，这时避免多余的维度是十分明智的。</p>
+<h2 id="准备-2">准备</h2><p>这使我们使用LabelBinarizer代替OneHotencode。只是阈值和目录表量的结合。<br>    from sklearn import datasets as d<br>    iris = d.load_iris()<br>    target = iris.target</p>
+<h2 id="这样去做">这样去做</h2><p>首先载入包。<br>    from sklearn.preprocessing import LabelBinarizer<br>    label_binarizer = LabelBinarizer()<br>接下来，转化目标输出到新的空间。<br>     new_target = label_binarizer.fit_transform(target)<br>我们看看发生了什么。</p>
+<pre><code>&gt;&gt;&gt; new_target.shape
+(<span class="number">150</span>, <span class="number">3</span>)
+&gt;&gt;&gt; new_target[:<span class="number">5</span>]
+<span class="built_in">array</span>([[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],
+[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],
+[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],
+[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],
+[<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>]])
+&gt;&gt;&gt; new_target[-<span class="number">5</span>:]
+<span class="built_in">array</span>([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
+[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
+[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
+[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],
+[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]])
+&gt;&gt;&gt; label_binarizer.<span class="function">classes_
+<span class="title">array</span><span class="params">([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>])</span></span>
+</code></pre><h2 id="如何工作-3">如何工作</h2><pre><code>这个数据集有三组值，我们给出的值一定要存在标签中，否则就会报错。
+</code></pre><h2 id="更多-3">更多</h2><pre><code>我们还可以指定，代表正数和代表负数的值。
+label_binarizer = <span class="function"><span class="title">LabelBinarizer</span><span class="params">(neg_label=-<span class="number">1000</span>, pos_label=<span class="number">1000</span>)</span></span>
+label_binarizer.<span class="function"><span class="title">fit_transform</span><span class="params">(target)</span></span>[:<span class="number">5</span>]
+</code></pre><h1 id="计算缺失值的几种策略">计算缺失值的几种策略</h1><p>现实数据会有很多的缺失值，我们有很多的方法处理它。在这一节我们提供几种方法，看看哪种更符合你的情况。</p>
+<h2 id="准备-3">准备</h2><p>我们首先制造缺失的值。<br>    from sklearn import datasets<br>    import numpy as np<br>    iris = datasets.load_iris()<br>    iris_X = iris.data<br>    masking_array = np.random.binomial(1, .25,<br>    iris_X.shape).astype(bool)<br>    iris_X[masking_array] = np.nan</p>
+<h2 id="如何去做-2">如何去做</h2><pre><code>&gt;&gt;&gt; from sklearn import preprocessing
+impute = preprocessing.Imputer()
+iris_X_prime = impute.fit_transform(iris_X)
+iris_X_prime[:<span class="number">5</span>]
+<span class="built_in">array</span>([[ <span class="number">5.1</span> , <span class="number">3.5</span> , <span class="number">1.4</span> , <span class="number">0.2</span> ],
+[ <span class="number">4.9</span> , <span class="number">3.</span> , <span class="number">1.4</span> , <span class="number">0.2</span> ],
+[ <span class="number">4.7</span> , <span class="number">3.2</span> , <span class="number">1.3</span> , <span class="number">0.2</span> ],
+[ <span class="number">5.87923077</span>, <span class="number">3.1</span> , <span class="number">1.5</span> , <span class="number">0.2</span> ],
+[ <span class="number">5.</span> , <span class="number">3.6</span> , <span class="number">1.4</span> , <span class="number">0.2</span> ]])
+</code></pre><h2 id="如何工作-4">如何工作</h2><p>计算依赖于不同的策略，缺省值是平均数，他们分别是：</p>
+<ul>
+<li>平均值</li>
+<li>中位数</li>
+<li>众数</li>
+</ul>
+<p>如果我们采用不同的策略只需要在前面指定，<br>     impute = preprocessing.Imputer(strategy=’median’)<br>我们之前的假设都是NAN为缺失的值，现在我们考虑如果缺失的值是-1.我们应该怎样做？<br>     impute = preprocessing.Imputer(missing_values=-1)<br>    iris_X_prime = impute.fit_transform(iris_X)<br>    iris_X_prime[:5]</p>
+<h2 id="更多-4">更多</h2><p>其实pandas这个库，处理这个比较灵活也比较好：<br>    import pandas as pd<br>    iris_X[masking_array] = np.nan<br>    iris_df = pd.DataFrame(iris_X, columns=iris.feature_names)<br>    iris_df.fillna(iris_df.mean())[‘sepal length (cm)’].head(5)</p>
+<h1 id="使用管道来多任务预处理">使用管道来多任务预处理</h1><p>管道这种工具被使用的十分频繁，它允许快速和更好的构建模型，适用于整个数据。而不是只能使用一步。</p>
+<h2 id="准备-4">准备</h2><p>我们考虑这样一种任务，处理缺失的值，和让均值为0，标准差为1。<br>首先我们创造数据：<br>    from sklearn import datasets<br>    import numpy as np<br>    mat = datasets.make_spd_matrix(10)<br>    masking_array = np.random.binomial(1, .1, mat.shape).astype(bool)<br>    mat[masking_array] = np.nan<br>    mat[:4, :4]<br>    array([[ 0.56716186, -0.20344151, nan, -0.22579163],<br>    [ nan, 1.98881836, -2.25445983, 1.27024191],<br>    [ 0.29327486, -2.25445983, 3.15525425, -1.64685403],<br>    [-0.22579163, 1.27024191, -1.64685403, 1.32240835]])</p>
+<h2 id="怎样去做-1">怎样去做</h2><p>如果不使用管道，那我们将这样处理;</p>
+<pre><code>&gt;&gt;&gt; from sklearn import preprocessing
+&gt;&gt;&gt; impute = preprocessing.Imputer()
+&gt;&gt;&gt; scaler = preprocessing.StandardScaler()
+&gt;&gt;&gt; mat_imputed = impute.fit_transform(mat)
+&gt;&gt;&gt; mat_imputed[:<span class="number">4</span>, :<span class="number">4</span>]
+<span class="built_in">array</span>([[ <span class="number">0.56716186</span>, -<span class="number">0.20344151</span>, -<span class="number">0.80554023</span>, -<span class="number">0.22579163</span>],
+[ <span class="number">0.04235695</span>, <span class="number">1.98881836</span>, -<span class="number">2.25445983</span>, <span class="number">1.27024191</span>],
+[ <span class="number">0.29327486</span>, -<span class="number">2.25445983</span>, <span class="number">3.15525425</span>, -<span class="number">1.64685403</span>],
+[-<span class="number">0.22579163</span>, <span class="number">1.27024191</span>, -<span class="number">1.64685403</span>, <span class="number">1.32240835</span>]])
+&gt;&gt;&gt; mat_imp_and_scaled = scaler.fit_transform(mat_imputed)
+<span class="built_in">array</span>([[ <span class="number">2.235e+00</span>, -<span class="number">6.291e-01</span>, <span class="number">1.427e-16</span>, -<span class="number">7.496e-01</span>],
+[ <span class="number">0.000e+00</span>, <span class="number">1.158e+00</span>, -<span class="number">9.309e-01</span>, <span class="number">9.072e-01</span>],
+[ <span class="number">1.068e+00</span>, -<span class="number">2.301e+00</span>, <span class="number">2.545e+00</span>, -<span class="number">2.323e+00</span>],
+[ -<span class="number">1.142e+00</span>, <span class="number">5.721e-01</span>, -<span class="number">5.405e-01</span>, <span class="number">9.650e-01</span>]])
+</code></pre><p>注意之前的缺失的值是0，这是因为我们使用了平均数的策略，然后规整的时候又减了平均值。<br>那我们来看看使用管道的情况：<br>    from sklearn import pipeline<br>    pipe = pipeline.Pipeline([(‘impute’, impute), (‘scaler’, scaler)])<br>这时的pipe是：</p>
+<pre><code>&gt;&gt;&gt; pipe
+Pipeline<span class="list">(<span class="keyword">steps=</span>[<span class="list">(<span class="quoted">'impute</span>', Imputer<span class="list">(<span class="keyword">axis=0</span>, copy=True, missing_
+values=<span class="quoted">'NaN</span>', strategy=<span class="quoted">'mean</span>', verbose=0)</span>)</span>, <span class="list">(<span class="quoted">'scalar</span>',
+StandardScaler<span class="list">(<span class="keyword">copy=True</span>, with_mean=True, with_std=True)</span>)</span>])</span>
+</code></pre><p>接下来使用fit_transform方法，这样就把分开的步骤合并成了一步。</p>
+<pre><code>&gt;&gt;&gt; new_mat = pipe.fit_transform(mat)
+&gt;&gt;&gt; new_mat [:<span class="number">4</span>, :<span class="number">4</span>]
+<span class="built_in">array</span>([[ <span class="number">2.235e+00</span>, -<span class="number">6.291e-01</span>, <span class="number">1.427e-16</span>, -<span class="number">7.496e-01</span>],
+[ <span class="number">0.000e+00</span>, <span class="number">1.158e+00</span>, -<span class="number">9.309e-01</span>, <span class="number">9.072e-01</span>],
+[ <span class="number">1.068e+00</span>, -<span class="number">2.301e+00</span>, <span class="number">2.545e+00</span>, -<span class="number">2.323e+00</span>],
+[ -<span class="number">1.142e+00</span>, <span class="number">5.721e-01</span>, -<span class="number">5.405e-01</span>, <span class="number">9.650e-01</span>]])
+</code></pre><p>接下来我们就会看见这个理念是多麽的强大。这并不停止处理的脚步，同时也可以轻松的完成维度约简，对于不同的学习方法。我们会在PCA中看见。</p>
+<h2 id="如何工作-5">如何工作</h2><p>正如刚刚提到的pipeline使用三种函数：</p>
+<ul>
+<li>fit</li>
+<li>transform</li>
+<li><p>fit_transform(常规方法)</p>
+<pre><code><span class="keyword">*</span><span class="keyword">*</span>没看懂<span class="keyword">*</span><span class="keyword">*</span>
+</code></pre><h1 id="使用PCA进行属性约简">使用PCA进行属性约简</h1></li>
+</ul>
+
       
     </div>
     
