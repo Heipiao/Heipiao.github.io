@@ -359,8 +359,18 @@ StandardScaler<span class="list">(<span class="keyword">copy=True</span>, with_m
 <li>transform</li>
 <li><p>fit_transform(常规方法)</p>
 <pre><code><span class="keyword">*</span><span class="keyword">*</span>没看懂<span class="keyword">*</span><span class="keyword">*</span>
-</code></pre><h1 id="使用PCA进行属性约简">使用PCA进行属性约简</h1></li>
+</code></pre><h1 id="使用PCA进行属性约简">使用PCA进行属性约简</h1><p>现在是使用高级的数学方法的时候了。这里我们使用PCA这个简单地统计方法。</p>
+<h2 id="准备-5">准备</h2><p>PCA是scikit的库，在这一章我们还要介绍其他几个分解方法。<br>我们使用iris数据集，但是最好使用自己的数据。<br>  from sklearn import datasets<br>  iris = datasets.load_iris()<br>  iris_X = iris.data</p>
+<h2 id="怎样去做-2">怎样去做</h2><p>首先，载入分解模块<br>   from sklearn import decomposition<br>我们生成PCA对象，<br>  pca = decomposition.PCA()<br>  pca<br>  PCA(copy=True, n_components=None, whiten=False)<br>比较其他对象，PCA使用很少的几个参数。现在PCA对象被创建。简单转化这个数据通过fit_transform方法。<br>   iris_pca = pca.fit_transform(iris_X)</p>
+<h2 id="怎样工作-1">怎样工作</h2><p>PCA有一个通用的数学定义，和一个特定的情况下在数据分析。PCA使用正交向量代表原始数据矩阵。<br>一般来说，PCA把原始数据集映射到新的空间，他们的列向量都正交。在数据分析层面，PCA转化数据的协方差矩阵到列向量，解释每一列之间的相似度。例如。对于iris数据集92.5%就是数据的第一方面。<br>这个非常的有用，因为维度对于数据分析数据。对于高维度的数据，在算法的应用可能会出现<strong>过拟合</strong>，如果大多数潜在的数据的结构可以代表很少的维度，这个很值得讨论。<br>为了举例说明，我们使用PCA转化iris数据集，我们只包括两个维度。<br>  pca = decomposition.PCA(n_components=2)<br>  iris_X_prime = pca.fit_transform(iris_X)<br>  iris_X_prime.shape</p>
+</li>
 </ul>
+<p>这两个维度，仍然包括大多数离散型。我们来看看两个能保留多少，<br>     pca.explained_variance<em>ratio</em>.sum()<br>     0.9776</p>
+<h2 id="更多-5">更多</h2><p>PCA对象可以被创建。例如，如果我们想使用特定的比例。PCA应该这样创建：<br>    pca = decomposition.PCA(n_components=.98)<br>    iris_X_prime = pca.fit(iris_X)<br>    pca.explained_variance<em>ratio</em>.sum()</p>
+<h1 id="使用因子分析用于约简">使用因子分析用于约简</h1><p>因子分析是另一个技术我们用于属性约简。然而，因子分析使用假设对于减少特征。<br>这个方法，将减少特征从我们的样例，理解变量的独立性。</p>
+<h2 id="准备-6">准备</h2><p>为了比较PCA和因子分析，我们首先引入因子分析。<br>     from sklearn.decomposition import FactorAnalysis</p>
+<h2 id="如何去做-3">如何去做</h2><p>从编码的层面，因子分析和PCA很相似。<br>    fa = FactorAnalysis(n_components=2)<br>    iris_two_dim = fa.fit_transform(iris.data)<br>因子分析是一个概率转化，我们可以检查不同的层面，例如log似然度。<br>因子分析也不是没有瑕疵。原因是你没有测试模型的输出，你测试模型作为准备的步骤，但是错误一定会在测试特定的模型。</p>
+<h2 id="怎样工作-2">怎样工作</h2><p>因子分析和主成分分析相似，都会覆盖之前的。然而最重要的，PCA是一个线性转化，每一个子类都会正交。例如，你可以考虑PCA作为又M个维度减为N的方法。</p>
 
       
     </div>
