@@ -401,7 +401,14 @@ iris_data_transformed = pipe.<span class="function"><span class="title">fit_tran
 iris_data_transformed[:<span class="number">5</span>]
 </code></pre><h1 id="使用高斯过程用来回归">使用高斯过程用来回归</h1><p>在这一节，我们使用高斯过程用来回归。在线性模型，我们利用贝叶斯回归来处理。<br>在高斯过程中，我们假设平均值是0，标准差由我们指定。<br>基础步骤与之前特征回归问题一致。通过高斯过程我们计算协方差。</p>
 <h2 id="准备-11">准备</h2><p>我们使用回归，通过高斯过程回归分析。<br>    from sklearn.datasets import load_boston<br>    boston = load_boston()<br>    boston_X = boston.data<br>    boston_y = boston.target<br>    train_set = np.random.choice([True, False], len(boston_y),p=[.75, .25])</p>
-<h2 id="怎样去做-6">怎样去做</h2><p>现在我们有了数据，我们使用高斯过程对象。一般情况它使用连续的回归函数，这时一个普遍的选择。<br>    from sklearn.gaussian_process import GaussianProcess<br>    gp = GaussianProcess()<br>    gp.fit(boston_X[train_set], boston_y[train_set])</p>
+<h2 id="怎样去做-6">怎样去做</h2><p>现在我们有了数据，我们使用高斯过程对象。一般情况它使用连续的回归函数，这时一个普遍的选择。<br>    from sklearn.gaussian_process import GaussianProcess<br>    gp = GaussianProcess()<br>    gp.fit(boston_X[train_set], boston_y[train_set])<br>这个强大的对象被定义，这接下来有几件事需要被指出：</p>
+<ul>
+<li>beta0：回归的权重</li>
+<li>corr：这就是关联函数，这有很多内置关联函数。</li>
+<li>redr：这是一致回归函数</li>
+<li>nugget：这是一个正则参数，这是一个非常小的值，</li>
+<li>normalize：这个参数会中心化和规整特征<br>这里，现在我们使用测试对象。<br>   test_preds = gp.predict(boston_X[~train_set])</li>
+</ul>
 
       
     </div>
