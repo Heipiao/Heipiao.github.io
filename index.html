@@ -172,6 +172,67 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Scikit中文手册第二章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/05/Scikit中文手册第二章/" class="article-date">
+  	<time datetime="2016-01-05T13:33:16.000Z" itemprop="datePublished">2016-01-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/05/Scikit中文手册第二章/">Scikit中文手册第二章</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介">简介</h1><p>线性模型是统计学和机器学习的基础。许多方法依赖线性模型描述了数据的关联。我们会做很多的努力把模型转化成线性模型。<br>在这一章，我们建立最朴素的思想用来分类，和贝叶斯的岭回归。</p>
+<h1 id="拟合直线">拟合直线</h1><p>现在我们开始建模，我们从最简单的线性回归开始，所以我们使用最基本的模型，一条直线。</p>
+<h2 id="准备">准备</h2><p>波士顿数据集很适合回归。波士顿地区的平均房价与许多因素有关，例如犯罪率。</p>
+<pre><code>from sklearn import datasets
+boston = datasets.<span class="function"><span class="title">load_boston</span><span class="params">()</span></span>
+</code></pre><h2 id="怎样去做">怎样去做</h2><p>实际上，使用线性模型十分简单。直接使用API，就和前面的章节一样。<br>首先使用LinearRegression对象。</p>
+<pre><code>from sklearn<span class="class">.linear_model</span> import LinearRe
+lr = <span class="function"><span class="title">LinearRegression</span><span class="params">()</span></span>
+lr.<span class="function"><span class="title">fit</span><span class="params">(boston.data, boston.target)</span></span>
+
+predictions = lr.<span class="function"><span class="title">predict</span><span class="params">(boston.data)</span></span>
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-scikit-cookbook-中文翻译" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -873,60 +934,6 @@ iris_data_transformed[:<span class="number">5</span>]
       
         <p class="article-more-link">
           <a  href="/2015/10/20/特征工程/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-scikit-learn-for-SGD" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/19/scikit-learn-for-SGD/" class="article-date">
-  	<time datetime="2015-10-19T04:21:27.000Z" itemprop="datePublished">2015-10-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/19/scikit-learn-for-SGD/">scikit-learn for SGD</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SGD随机梯度下降在ML中十分高效。本文简要介绍一下它在scikit-learn的使用。原文地址：<a href="http://scikit-learn.org/stable/modules/sgd.html">http://scikit-learn.org/stable/modules/sgd.html</a><br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/19/scikit-learn-for-SGD/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
