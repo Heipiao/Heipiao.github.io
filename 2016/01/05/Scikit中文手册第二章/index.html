@@ -18,7 +18,7 @@ from sklearn import dataset">
 拟合直线现在我们开始建模，我们从最简单的线性回归开始，所以我们使用最基本的模型，一条直线。
 准备波士顿数据集很适合回归。波士顿地区的平均房价与许多因素有关，例如犯罪率。
 from sklearn import dataset">
-<meta property="og:updated_time" content="2016-01-05T15:35:11.959Z">
+<meta property="og:updated_time" content="2016-01-05T15:38:43.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scikit中文手册第二章">
 <meta name="twitter:description" content="简介线性模型是统计学和机器学习的基础。许多方法依赖线性模型描述了数据的关联。我们会做很多的努力把模型转化成线性模型。在这一章，我们建立最朴素的思想用来分类，和贝叶斯的岭回归。
@@ -259,7 +259,7 @@ ax.<span class="function"><span class="title">hist</span><span class="params">(c
 ax.<span class="function"><span class="title">set_title</span><span class="params">(<span class="string">"Histogram of the lr.coef_[0]."</span>)</span></span>
 </code></pre><h1 id="使用岭回归去克服线性回归的短处">使用岭回归去克服线性回归的短处</h1><p>这一节我们学习岭回归。不同于常规回归，这介绍了常规的参数。</p>
 <h2 id="准备-2">准备</h2><p>我们使用数据集效率十分的低，这个我们要求矩阵是满秩。</p>
-<h2 id="怎样去做-2">怎样去做</h2><p>我们创造一个有效阶为2的矩阵。</p>
+<h2 id="怎样去做-2">怎样去做</h2><p>我们创造一个有效阶为2的矩阵。<br>    from sklearn.datasets import make_regression<br>    reg_data, reg_target = make_regression(n_samples=2000,<br>    n_features=3, effective_rank=2, noise=10)<br>    First, let’s take a look at regular linear regression:<br>    import numpy as np<br>    n_bootstraps = 1000<br>    len_data = len(reg_data)<br>    subsample_size = np.int(0.75*len_data)<br>    subsample = lambda: np.random.choice(np.arange(0, len_data),<br>    size=subsample_size)</p>
 
       
     </div>
