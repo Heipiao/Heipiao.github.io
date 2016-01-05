@@ -18,7 +18,7 @@ from sklearn import dataset">
 拟合直线现在我们开始建模，我们从最简单的线性回归开始，所以我们使用最基本的模型，一条直线。
 准备波士顿数据集很适合回归。波士顿地区的平均房价与许多因素有关，例如犯罪率。
 from sklearn import dataset">
-<meta property="og:updated_time" content="2016-01-05T14:09:51.913Z">
+<meta property="og:updated_time" content="2016-01-05T15:35:11.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scikit中文手册第二章">
 <meta name="twitter:description" content="简介线性模型是统计学和机器学习的基础。许多方法依赖线性模型描述了数据的关联。我们会做很多的努力把模型转化成线性模型。在这一章，我们建立最朴素的思想用来分类，和贝叶斯的岭回归。
@@ -224,7 +224,43 @@ lr = <span class="function"><span class="title">LinearRegression</span><span cla
 lr.<span class="function"><span class="title">fit</span><span class="params">(boston.data, boston.target)</span></span>
 
 predictions = lr.<span class="function"><span class="title">predict</span><span class="params">(boston.data)</span></span>
-</code></pre>
+</code></pre><p>我们来看看预测值和实际值的差值。我们使用一个直方图来看看不同。<br>接下来，回到数据我们要看见消极的影响，也可以看见积极的影响。</p>
+<h2 id="更多">更多</h2><h1 id="解析线性模型">解析线性模型</h1><p>这一节。我们看看怎样更好的拟合数据。我们拟合一组数据，然后关注我们如何更好的拟合它。</p>
+<h2 id="准备-1">准备</h2><p>我们仍然使用上一节的lr对象和boston数据集，lr有很多有用的方法。</p>
+<h2 id="怎样去做-1">怎样去做</h2><p>这里有一些十分简单的指标，我们来看看上一节的残值分析。<br>    import matplotlib.pyplot as plt<br>    import numpy as np<br>    f = plt.figure(figsize=(7, 5))<br>    ax = f.add_subplot(111)<br>    ax.hist(boston.target - predictions, bins=50)<br>    ax.set_title(“Histogram of Residuals.”)<br>正如我之前提到的，错误的值的均值应该为0.这个残值就是错误。我们应该看看平均值，它应该很接近0.</p>
+<pre><code>np.<span class="function"><span class="title">mean</span><span class="params">(boston.target - predictions)</span></span>
+</code></pre><p>我们还可以使用Scipy来画图。<br>我们还可以看看，其他的指标。平方错误（MSE）和绝对偏差（MAD）。</p>
+<pre><code><span class="function"><span class="keyword">def</span> <span class="title">MSE</span><span class="params">(target, predictions)</span>:</span>
+    squared_deviation = np.power(target - predictions, <span class="number">2</span>)
+    <span class="keyword">return</span> np.mean(squared_deviation)
+
+<span class="function"><span class="keyword">def</span> <span class="title">MAD</span><span class="params">(target, predictions)</span>:</span>
+    absolute_deviation = np.abs(target - predictions)
+    <span class="keyword">return</span> np.mean(absolute_deviation)
+</code></pre><h2 id="怎样工作">怎样工作</h2><p>这是MSE：E(y1-y2）^2 它很简单就是求了，预测值和正确值差的平方。<br>这是MAD：E|y1-y2| </p>
+<h2 id="更多-1">更多</h2><p>自举是一种普遍的方法来检测不确定性。</p>
+<pre><code>n_bootstraps = <span class="number">1000</span>
+len_boston = <span class="function"><span class="title">len</span><span class="params">(boston.target)</span></span>
+subsample_size = np.<span class="function"><span class="title">int</span><span class="params">(<span class="number">0.5</span>*len_boston)</span></span>
+
+subsample = lambda: np<span class="class">.random</span><span class="class">.choice</span>(np.<span class="function"><span class="title">arange</span><span class="params">(<span class="number">0</span>, len_boston)</span><span class="title">size</span></span>=subsample_size)
+coefs = np.<span class="function"><span class="title">ones</span><span class="params">(n_bootstraps)</span></span> <span class="id">#pre-allocate</span> the space <span class="keyword">for</span> the coefs
+<span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> <span class="function"><span class="title">range</span><span class="params">(n_bootstraps)</span></span>:
+    subsample_idx = <span class="function"><span class="title">subsample</span><span class="params">()</span></span>
+    subsample_X = boston<span class="class">.data</span>[subsample_idx]
+    subsample_y = boston<span class="class">.target</span>[subsample_idx]
+lr.<span class="function"><span class="title">fit</span><span class="params">(subsample_X, subsample_y)</span></span>
+coefs[i] = lr<span class="class">.coef_</span>[<span class="number">0</span>]
+
+import matplotlib<span class="class">.pyplot</span> as plt
+f = plt.<span class="function"><span class="title">figure</span><span class="params">(figsize=(<span class="number">7</span>, <span class="number">5</span>)</span></span>)
+ax = f.<span class="function"><span class="title">add_subplot</span><span class="params">(<span class="number">111</span>)</span></span>
+ax.<span class="function"><span class="title">hist</span><span class="params">(coefs, bins=<span class="number">50</span>)</span></span>
+ax.<span class="function"><span class="title">set_title</span><span class="params">(<span class="string">"Histogram of the lr.coef_[0]."</span>)</span></span>
+</code></pre><h1 id="使用岭回归去克服线性回归的短处">使用岭回归去克服线性回归的短处</h1><p>这一节我们学习岭回归。不同于常规回归，这介绍了常规的参数。</p>
+<h2 id="准备-2">准备</h2><p>我们使用数据集效率十分的低，这个我们要求矩阵是满秩。</p>
+<h2 id="怎样去做-2">怎样去做</h2><p>我们创造一个有效阶为2的矩阵。</p>
+
       
     </div>
     
