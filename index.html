@@ -245,6 +245,87 @@ ax.<span class="function"><span class="title">set_title</span><span class="param
 </code></pre><h1 id="使用岭回归去克服线性回归的短处">使用岭回归去克服线性回归的短处</h1><p>这一节我们学习岭回归。不同于常规回归，这介绍了常规的参数。</p>
 <h2 id="准备-2">准备</h2><p>我们使用数据集效率十分的低，这个我们要求矩阵是满秩。</p>
 <h2 id="怎样去做-2">怎样去做</h2><p>我们创造一个有效阶为2的矩阵。<br>    from sklearn.datasets import make_regression<br>    reg_data, reg_target = make_regression(n_samples=2000,<br>    n_features=3, effective_rank=2, noise=10)<br>    First, let’s take a look at regular linear regression:<br>    import numpy as np<br>    n_bootstraps = 1000<br>    len_data = len(reg_data)<br>    subsample_size = np.int(0.75*len_data)<br>    subsample = lambda: np.random.choice(np.arange(0, len_data),<br>    size=subsample_size)</p>
+<h1 id="优化岭回归的参数">优化岭回归的参数</h1><p>一旦你开始使用岭回归去预测，你建立的模型的参数。你可以考虑参数alpha的值。<br>例如，使用最小二乘法也可以，展示两个变量之间的关系。然而，这时需要做一个决策。</p>
+<h2 id="准备-3">准备</h2><p>我们使用交叉验证的方法来处理岭回归。如果你还记得，在岭回归我们创造回归数据集。</p>
+<pre><code>from sklearn.datasets import make_regression
+reg_data, reg_target = make_regression(n_samples=<span class="number">100</span>,
+n_features=<span class="number">2</span>, effective_rank=<span class="number">1</span>, noise=<span class="number">10</span>)
+</code></pre><h2 id="怎样去做-3">怎样去做</h2><p>在线性模型，这里有个对象是RidgeCV，这里就可以表现出交叉验证。</p>
+<pre><code>from sklearn<span class="class">.linear_model</span> import RidgeCV
+rcv = <span class="function"><span class="title">RidgeCV</span><span class="params">(alphas=np.array([.<span class="number">1</span>, .<span class="number">2</span>, .<span class="number">3</span>, .<span class="number">4</span>])</span></span>)
+rcv.<span class="function"><span class="title">fit</span><span class="params">(reg_data, reg_target)</span></span>
+<span class="function"><span class="title">RidgeCV</span><span class="params">(alphas=array([ <span class="number">0.1</span>, <span class="number">0.2</span>, <span class="number">0.3</span>, <span class="number">0.4</span>])</span></span>, cv=None,
+fit_intercept=True, gcv_mode=None, loss_func=None,
+normalize=False, score_func=None, scoring=None,
+store_cv_values=False)
+</code></pre><p>在我们拟合回归之后，我们选择最佳的alpha。</p>
+<pre><code>rcv2 = RidgeCV(alphas=np.<span class="built_in">array</span>([<span class="number">.08</span>, <span class="number">.09</span>, <span class="number">.1</span>, <span class="number">.11</span>, <span class="number">.12</span>]))
+rcv2.fit(reg_data, reg_target)
+RidgeCV(alphas=<span class="built_in">array</span>([ <span class="number">0.08</span>, <span class="number">0.09</span>, <span class="number">0.1</span> , <span class="number">0.11</span>, <span class="number">0.12</span>]), cv=None,
+fit_intercept=True, gcv_mode=None,
+loss_func=None, normalize=False,
+score_func=None, scoring=None,
+store_cv_values=False)
+</code></pre><p>我们可以进一步这个过程。</p>
+<h2 id="怎样工作-1">怎样工作</h2><p>我们来看看，我们是如何定义这个最好的参数。<br><strong>没懂</strong></p>
+<h1 id="使用稀疏矩阵来正规化模型">使用稀疏矩阵来正规化模型</h1><p>这里使用lasso算法。<br>。。。。</p>
+<h1 id="使用线性模型进行逻辑回归">使用线性模型进行逻辑回归</h1><p>线性模型实际上可以用做分类，他会拟合一个特定的函数，然后指定特定的输出来分类。</p>
+<h2 id="准备-4">准备</h2><pre><code>from sklearn<span class="class">.datasets</span> import make_classification
+X, y = <span class="function"><span class="title">make_classification</span><span class="params">(n_samples=<span class="number">1000</span>, n_features=<span class="number">4</span>)</span></span>
+</code></pre><h2 id="怎样去做-4">怎样去做</h2><p>这个LogisticRegression对象和其他线性模型一样。</p>
+<pre><code>from sklearn<span class="class">.linear_model</span> import LogisticRegression
+lr = <span class="function"><span class="title">LogisticRegression</span><span class="params">()</span></span>
+</code></pre><p>我们只使用最后200来测试，前面来训练模型。</p>
+<pre><code><span class="name">X_train</span> = <span class="name">X</span>[:-<span class="number">200</span>]
+<span class="name">X_test</span> = <span class="name">X</span>[-<span class="number">200</span>:]
+<span class="atom">y_train</span> = <span class="atom">y</span>[:-<span class="number">200</span>]
+<span class="atom">y_test</span> = <span class="atom">y</span>[-<span class="number">200</span>:]
+</code></pre><p>我们讨论更多的交叉验证在后面的章节。现在我们使用逻辑回归。我们来预测训练集。</p>
+<pre><code>lr.<span class="function"><span class="title">fit</span><span class="params">(X_train, y_train)</span></span>
+y_train_predictions = lr.<span class="function"><span class="title">predict</span><span class="params">(X_train)</span></span>
+y_test_predictions = lr.<span class="function"><span class="title">predict</span><span class="params">(X_test)</span></span>
+</code></pre><p>我们现在来看看预测的性能，这个计算也很简单。我们直接计算正确率就好了：</p>
+<pre><code>(y_train_predictions == y_train).<span class="function"><span class="title">sum</span><span class="params">()</span></span>.<span class="function"><span class="title">astype</span><span class="params">(float)</span></span> /
+y_train<span class="class">.shape</span>[<span class="number">0</span>]
+<span class="number">0.8662499</span>
+</code></pre><p>使用这个方法同样我们可以用来分类。</p>
+<h2 id="更多-2">更多</h2><p>我们创造一个不平衡率为95%的数据集。</p>
+<pre><code>X, y = make_classification(n_samples=<span class="number">5000</span>, n_features=<span class="number">4</span>,
+weights=[.<span class="number">95</span>])
+<span class="function"><span class="title">sum</span><span class="params">(y)</span></span> / (<span class="function"><span class="title">len</span><span class="params">(y)</span></span>*<span class="number">1</span>.) <span class="id">#to</span> confirm the class imbalance
+    <span class="number">0.0555</span>
+</code></pre><p>我们使用逻辑回归来拟合数据。</p>
+<pre><code>X_train = X[:-<span class="number">500</span>]
+X_test = X[-<span class="number">500</span>:]
+y_train = y[:-<span class="number">500</span>]
+y_test = y[-<span class="number">500</span>:]
+lr.<span class="function"><span class="title">fit</span><span class="params">(X_train, y_train)</span></span>
+y_train_predictions = lr.<span class="function"><span class="title">predict</span><span class="params">(X_train)</span></span>
+y_test_predictions = lr.<span class="function"><span class="title">predict</span><span class="params">(X_test)</span></span>
+Now, to see how well our model fis the data, do the following:
+(y_train_predictions == y_train).<span class="function"><span class="title">sum</span><span class="params">()</span></span>.<span class="function"><span class="title">astype</span><span class="params">(float)</span></span> /
+y_train<span class="class">.shape</span>[<span class="number">0</span>]
+    <span class="number">0.96977</span>
+(y_test_predictions == y_test).<span class="function"><span class="title">sum</span><span class="params">()</span></span>.<span class="function"><span class="title">astype</span><span class="params">(float)</span></span> / y_test<span class="class">.shape</span>[<span class="number">0</span>]
+    <span class="number">0.97999</span>
+</code></pre><h1 id="直接使用贝叶斯岭回归">直接使用贝叶斯岭回归</h1><p>。。。。</p>
+<h1 id="从错误开始增强学习">从错误开始增强学习</h1><p>增强学习回归，他们从一系列弱学习器中，制造出一个强学习器。</p>
+<h2 id="准备-5">准备</h2><p>我们使用基本的回归数据，来看看增强学习是如何工作的。</p>
+<pre><code>from sklearn<span class="class">.datasets</span> import make_regression
+X, y = <span class="function"><span class="title">make_regression</span><span class="params">(<span class="number">1000</span>, <span class="number">2</span>, noise=<span class="number">10</span>)</span></span>
+</code></pre><h2 id="怎样去做-5">怎样去做</h2><p>GBR是一个增强学习模块，因为这是一个增强学习器。</p>
+<pre><code><span class="keyword">from</span> sklearn.ensemble import GradientBoostingRegressor <span class="keyword">as</span> GBR
+gbr = GBR()
+gbr.fit(X, y)
+gbr_preds = gbr.predict(X)
+Clearly, there<span class="comment">'s more to fiting a usable model, but this pattern should be pretty clear by now.</span>
+Now, <span class="keyword">let</span><span class="comment">'s fi a basic regression as well so that we can use it as the baseline:</span>
+<span class="keyword">from</span> sklearn.linear_model import LinearRegression
+lr = LinearRegression()
+lr.fit(X, y)
+lr_preds = lr.predict(X)
+</code></pre><p>我们可以看看增强学习比普通逻辑回归号好多少。</p>
+<h2 id="怎样工作-2">怎样工作</h2><p>第一个参数n_estimators就是弱学习器的个数<br>max_depth指树一共有点，<br>loss就是损失函数</p>
 
       
     </div>
