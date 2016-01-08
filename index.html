@@ -172,6 +172,120 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-scikit-中文手册-第三章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/08/scikit-中文手册-第三章/" class="article-date">
+  	<time datetime="2016-01-08T01:56:12.000Z" itemprop="datePublished">2016-01-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/08/scikit-中文手册-第三章/">scikit 中文手册 第三章</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="使用距离来建立模型">使用距离来建立模型</h1><h2 id="简介">简介</h2><p>在这一节，我们开始考虑集群。集群一般使用在非监督学习。这些技术假设我们不知道输出。集群是个很有用的设定。这可能是为什么集群是很有效率的。这可以处理一些问题。</p>
+<h2 id="使用KMean来聚集数据">使用KMean来聚集数据</h2><p>聚类是一种十分有用的技术，考虑把潜在的客户分离，分类器帮助我们完成这一过程。</p>
+<h2 id="准备">准备</h2><p>首先我们看看简单的聚类，然后看看KMean是如何工作的：</p>
+<pre><code>from sklearn<span class="class">.datasets</span> import make_blobs
+blobs, classes = <span class="function"><span class="title">make_blobs</span><span class="params">(<span class="number">500</span>, centers=<span class="number">3</span>)</span></span>    
+</code></pre><h2 id="怎样做">怎样做</h2><p>我们将要举一个简单的例子，从错误的数据。接下来我们来谈谈工作原理和如何优化它。</p>
+<pre><code>f, ax = plt.<span class="function"><span class="title">subplots</span><span class="params">(figsize=(<span class="number">7.5</span>, <span class="number">7.5</span>)</span></span>)
+ax.<span class="function"><span class="title">scatter</span><span class="params">(blobs[:, <span class="number">0</span>], blobs[:, <span class="number">1</span>], color=rgb[classes])</span></span>
+rgb = np.<span class="function"><span class="title">array</span><span class="params">([<span class="string">'r'</span>, <span class="string">'g'</span>, <span class="string">'b'</span>])</span></span>
+ax.<span class="function"><span class="title">set_title</span><span class="params">(<span class="string">"Blobs"</span>)</span></span>
+</code></pre><p>我们使用KMean来找到这些聚类的中心。</p>
+<pre><code>from sklearn<span class="class">.cluster</span> import KMeans
+kmean = <span class="function"><span class="title">KMeans</span><span class="params">(n_clusters=<span class="number">3</span>)</span></span>
+kmean.<span class="function"><span class="title">fit</span><span class="params">(blobs)</span></span>
+KMeans(copy_x=True, init=<span class="string">'k-means++'</span>, max_iter=<span class="number">300</span>, n_clusters=<span class="number">3</span>,
+n_init=<span class="number">10</span>, n_jobs=<span class="number">1</span>, precompute_distances=True,
+random_state=None, tol=<span class="number">0.0001</span>, verbose=<span class="number">0</span>)
+kmean<span class="class">.cluster_centers_</span>
+array([[ <span class="number">0.47819567</span>, <span class="number">1.80819197</span>],
+[ <span class="number">0.08627847</span>, <span class="number">8.24102715</span>],
+[ <span class="number">5.2026125</span> , <span class="number">7.86881767</span>]])
+f, ax = plt.<span class="function"><span class="title">subplots</span><span class="params">(figsize=(<span class="number">7.5</span>, <span class="number">7.5</span>)</span></span>)
+ax.<span class="function"><span class="title">scatter</span><span class="params">(blobs[:, <span class="number">0</span>], blobs[:, <span class="number">1</span>], color=rgb[classes])</span></span>
+ax.scatter(kmean<span class="class">.cluster_centers_</span>[:, <span class="number">0</span>],
+kmean<span class="class">.cluster_centers_</span>[:, <span class="number">1</span>], marker=<span class="string">'*'</span>, s=<span class="number">250</span>,
+<span class="attribute">color</span>=<span class="string">'black'</span>, label=<span class="string">'Centers'</span>)
+ax.<span class="function"><span class="title">set_title</span><span class="params">(<span class="string">"Blobs"</span>)</span></span>
+ax.<span class="function"><span class="title">legend</span><span class="params">(loc=<span class="string">'best'</span>)</span></span>
+</code></pre><p>我们使用labels_属性来看看每一个点的标签。</p>
+<pre><code> kmean.labels_[:<span class="number">5</span>]
+<span class="built_in">array</span>([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], dtype=int32)
+</code></pre><p>transform函数十分有用，会输出每一个到中心的距离。</p>
+<pre><code>kmean.<span class="function"><span class="title">transform</span><span class="params">(blobs)</span></span>[:<span class="number">5</span>]
+</code></pre><h2 id="怎样工作">怎样工作</h2><p>KMean是一个十分简单的算法，它最小化平方距离的平均值，我们将最小化平方和。</p>
+<h1 id="优化重心的数量">优化重心的数量</h1><p>要决定我们应该使用多少个重心是一个很难的问题。我们应该明白数据是不平衡的所以会影响评估方法。</p>
+<h2 id="准备-1">准备</h2><p>评估模型的表现对于非监督模型是很有挑战的，sklearn有很多方法评估聚类的，但是用的不多。</p>
+<h2 id="怎样去做">怎样去做</h2><p>我们还是要模拟数据聚类这个过程。</p>
+<pre><code>from sklearn<span class="class">.datasets</span> import make_blobs
+import numpy as np
+blobs, classes = <span class="function"><span class="title">make_blobs</span><span class="params">(<span class="number">500</span>, centers=<span class="number">3</span>)</span></span>
+from sklearn<span class="class">.cluster</span> import KMeans
+kmean = <span class="function"><span class="title">KMeans</span><span class="params">(n_clusters=<span class="number">3</span>)</span></span>
+kmean.<span class="function"><span class="title">fit</span><span class="params">(blobs)</span></span>
+KMeans(copy_x=True, init=<span class="string">'k-means++'</span>, max_iter=<span class="number">300</span>, n_clusters=<span class="number">3</span>,
+n_init=<span class="number">10</span>, n_jobs=<span class="number">1</span>, precompute_distances=True,
+random_state=None, tol=<span class="number">0.0001</span>, verbose=<span class="number">0</span>)
+</code></pre><p>首先，我们来看看轮廓距离。它是不同的比率归类和未归类的比较。<br>    from sklearn import metrics<br>    silhouette_samples = metrics.silhouette<em>samples(blobs,<br>    kmean.labels</em>)<br>    np.column_stack((classes[:5], silhouette_samples[:5]))<br>    f, ax = plt.subplots(figsize=(10, 5))<br>    ax.set_title(“Hist of Silhouette Samples”)<br>    ax.hist(silhouette_samples)<br>这里的数据会逐渐升高直到1.</p>
+<h2 id="怎样工作-1">怎样工作</h2><p>我们来看看轮廓距离的平均值，来描述它：<br>    silhouette_samples.mean()<br>这个十分普遍，实际上这个度量模块表现的函数：</p>
+<pre><code><span class="tag">metrics</span><span class="class">.silhouette_score</span>(<span class="tag">blobs</span>, <span class="tag">kmean</span><span class="class">.labels_</span>)
+    0<span class="class">.57130462953339578</span>
+</code></pre><p>我们计算多个分类，来看看平均数值：</p>
+<pre><code>first new ground truth
+blobs, classes = <span class="function"><span class="title">make_blobs</span><span class="params">(<span class="number">500</span>, centers=<span class="number">10</span>)</span></span>
+sillhouette_avgs = []
+this could take <span class="tag">a</span> while
+<span class="keyword">for</span> k <span class="keyword">in</span> <span class="function"><span class="title">range</span><span class="params">(<span class="number">2</span>, <span class="number">60</span>)</span></span>:
+kmean = <span class="function"><span class="title">KMeans</span><span class="params">(n_clusters=k)</span></span>.<span class="function"><span class="title">fit</span><span class="params">(blobs)</span></span>
+sillhouette_avgs.<span class="function"><span class="title">append</span><span class="params">(metrics.silhouette_score(blobs,kmean.labels_)</span></span>)
+f, ax = plt.<span class="function"><span class="title">subplots</span><span class="params">(figsize=(<span class="number">7</span>, <span class="number">5</span>)</span></span>)
+ax.<span class="function"><span class="title">plot</span><span class="params">(sillhouette_avgs)</span></span>
+</code></pre><p>我们可以看出根据这个图应该有6或者7个中心，但是其实我们知道只有三个中心，我们只能盼望检测的数量比较接近。</p>
+<h1 id="接触聚类的正确性">接触聚类的正确性</h1><p>我们来谈论有关聚类的正确性。</p>
+<h2 id="准备-2">准备</h2><p>我们假设一种情况我们使用外部代理来处理真实数据。我们使用简单的数据集，评估这些方法的正确性。我们创造简单的数据集，来讨论这个。<br>    from sklearn import datasets<br>    from sklearn import cluster<br>    blobs, ground_truth = datasets.make_blobs(1000, centers=3,cluster_std=1.75)</p>
+<h2 id="怎样去做-1">怎样去做</h2><p>在我们处理这些之前，让我们看看这个数据集。<br>    f, ax = plt.subplots(figsize=(7, 5))<br>    colors = [‘r’, ‘g’, ‘b’]<br>    for i in range(3):<br>        p = blobs[ground_truth == i]<br>        ax.scatter(p[:,0], p[:,1], c=colors[i],label=”Cluster {}”.format(i))<br>    ax.set_title(“Cluster With Ground Truth”)<br>    ax.legend()<br>    f.savefig(“9485OS_03-16”)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-Scikit中文手册第二章" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -993,64 +1107,6 @@ iris_data_transformed[:<span class="number">5</span>]
       
         <p class="article-more-link">
           <a  href="/2015/10/26/数据管道的简单分析/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-特征工程" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/20/特征工程/" class="article-date">
-  	<time datetime="2015-10-20T11:21:28.000Z" itemprop="datePublished">2015-10-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/20/特征工程/">特征工程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>看过许多kaggle竞赛的论文，无一例外讲到了Feature engineering。今天来总结一下，使用pandas来进行 Feature engineering的几种方法，这里就使用我这一段看的kaggle-101的题。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/10/20/特征工程/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
