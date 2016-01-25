@@ -6,16 +6,28 @@
   
   <title>第四章 分类器 | 不如</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第四章 分类器简介分类器在一系列情况下都十分重要。例如如果我们想自动化完成">
+  <meta name="description" content="第四章 分类器简介分类器在一系列情况下都十分重要。例如如果我们想自动化完成一些决策过程，我们可以使用分类器。
+使用决策树来分类这一节我们来使用决策树来分类，这是一个非常好的模型，因为它很好理解。一旦训练好了，这里通常使用SQl语句，这意味着很多人可以使用它。
+准备我们首先还是制作我们需要的数据：
+&amp;gt;&amp;gt;&amp;gt; from sklearn import datasets
+&amp;gt;&amp;gt;&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第四章 分类器">
 <meta property="og:url" content="http://yoursite.com/2016/01/19/第四章-分类器/index.html">
 <meta property="og:site_name" content="不如">
-<meta property="og:description" content="第四章 分类器简介分类器在一系列情况下都十分重要。例如如果我们想自动化完成">
-<meta property="og:updated_time" content="2016-01-19T13:08:17.356Z">
+<meta property="og:description" content="第四章 分类器简介分类器在一系列情况下都十分重要。例如如果我们想自动化完成一些决策过程，我们可以使用分类器。
+使用决策树来分类这一节我们来使用决策树来分类，这是一个非常好的模型，因为它很好理解。一旦训练好了，这里通常使用SQl语句，这意味着很多人可以使用它。
+准备我们首先还是制作我们需要的数据：
+&amp;gt;&amp;gt;&amp;gt; from sklearn import datasets
+&amp;gt;&amp;gt;&amp;">
+<meta property="og:updated_time" content="2016-01-25T13:17:12.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第四章 分类器">
-<meta name="twitter:description" content="第四章 分类器简介分类器在一系列情况下都十分重要。例如如果我们想自动化完成">
+<meta name="twitter:description" content="第四章 分类器简介分类器在一系列情况下都十分重要。例如如果我们想自动化完成一些决策过程，我们可以使用分类器。
+使用决策树来分类这一节我们来使用决策树来分类，这是一个非常好的模型，因为它很好理解。一旦训练好了，这里通常使用SQl语句，这意味着很多人可以使用它。
+准备我们首先还是制作我们需要的数据：
+&amp;gt;&amp;gt;&amp;gt; from sklearn import datasets
+&amp;gt;&amp;gt;&amp;">
   
     <link rel="alternative" href="/atom.xml" title="不如" type="application/atom+xml">
   
@@ -204,8 +216,58 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="第四章_分类器">第四章 分类器</h1><h2 id="简介">简介</h2><p>分类器在一系列情况下都十分重要。例如如果我们想自动化完成</p>
-
+        <h1 id="第四章_分类器">第四章 分类器</h1><h2 id="简介">简介</h2><p>分类器在一系列情况下都十分重要。例如如果我们想自动化完成一些决策过程，我们可以使用分类器。</p>
+<h2 id="使用决策树来分类">使用决策树来分类</h2><p>这一节我们来使用决策树来分类，这是一个非常好的模型，因为它很好理解。一旦训练好了，这里通常使用SQl语句，这意味着很多人可以使用它。</p>
+<h3 id="准备">准备</h3><p>我们首先还是制作我们需要的数据：</p>
+<pre><code><span class="prompt">&gt;&gt;</span>&gt; from sklearn import datasets
+<span class="prompt">&gt;&gt;</span>&gt; <span class="constant">X</span>, y = datasets.make_classification(n_samples=<span class="number">1000</span>, n_features=<span class="number">3</span>,
+ n_redundant=<span class="number">0</span>)    
+</code></pre><h3 id="怎样去做">怎样去做</h3><p>使用决策树十分简单，我们首先引入对象，然后拟合模型。</p>
+<pre><code>&gt;&gt;&gt; from sklearn<span class="class">.tree</span> import DecisionTreeClassifier
+&gt;&gt;&gt; <span class="tag">dt</span> = <span class="function"><span class="title">DecisionTreeClassifier</span><span class="params">()</span></span>
+&gt;&gt;&gt; <span class="tag">dt</span>.<span class="function"><span class="title">fit</span><span class="params">(X, y)</span></span>
+<span class="function"><span class="title">DecisionTreeClassifier</span><span class="params">(compute_importances=None, criterion=<span class="string">'gini'</span>,    max_depth=None, max_features=None,    max_leaf_nodes=None, min_density=None,min_samples_leaf=<span class="number">1</span>, min_samples_split=<span class="number">2</span>,random_state=None, splitter=<span class="string">'best'</span>)</span></span>
+preds = <span class="tag">dt</span>.<span class="function"><span class="title">predict</span><span class="params">(X)</span></span>
+(y == preds).<span class="function"><span class="title">mean</span><span class="params">()</span></span>
+    <span class="number">1.0</span>
+</code></pre><p>正如你可以看见的，我们来看看我们可以调整的参数。首先，如果你看着这个对象，他有这样几个关键的参数，可以用来影响。<br>第一个是 <em>max_depth</em> 这是一个非常重要的参数， 这确定个多少个分支。我们来看看我们使用不同的max_depth会带来怎样的效果：</p>
+<pre><code>n_features=<span class="number">200</span>
+X, y = datasets.make_classification(<span class="number">750</span>, n_features,
+n_informative=<span class="number">5</span>)
+import numpy as np
+training = np<span class="class">.random</span><span class="class">.choice</span>([True, False], p=[.<span class="number">75</span>, .<span class="number">25</span>],size=<span class="function"><span class="title">len</span><span class="params">(y)</span></span>)
+accuracies = []
+<span class="keyword">for</span> x <span class="keyword">in</span> np.<span class="function"><span class="title">arange</span><span class="params">(<span class="number">1</span>, n_features+<span class="number">1</span>)</span></span>:
+<span class="tag">dt</span> = <span class="function"><span class="title">DecisionTreeClassifier</span><span class="params">(max_depth=x)</span></span>
+<span class="tag">dt</span>.<span class="function"><span class="title">fit</span><span class="params">(X[training], y[training])</span></span>
+preds = <span class="tag">dt</span>.<span class="function"><span class="title">predict</span><span class="params">(X[~training])</span></span>
+accuracies.<span class="function"><span class="title">append</span><span class="params">((preds == y[~training])</span></span>.<span class="function"><span class="title">mean</span><span class="params">()</span></span>)
+import matplotlib<span class="class">.pyplot</span> as plt
+f, ax = plt.<span class="function"><span class="title">subplots</span><span class="params">(figsize=(<span class="number">7</span>, <span class="number">5</span>)</span></span>)
+ax.<span class="function"><span class="title">plot</span><span class="params">(range(<span class="number">1</span>, n_features+<span class="number">1</span>)</span></span>, accuracies, <span class="attribute">color</span>=<span class="string">'k'</span>)
+ax.<span class="function"><span class="title">set_title</span><span class="params">(<span class="string">"Decision Tree Accuracy"</span>)</span></span>
+ax.<span class="function"><span class="title">set_ylabel</span><span class="params">(<span class="string">"% Correct"</span>)</span></span>
+ax.set_xlabel(<span class="string">"Max Depth"</span>）
+</code></pre><p>我们可以看出来我们应该使用比较小的值我们用最大值15来看看这个结果：</p>
+<pre><code>N = <span class="number">15</span>
+import matplotlib<span class="class">.pyplot</span> as plt
+f, ax = plt.<span class="function"><span class="title">subplots</span><span class="params">(figsize=(<span class="number">7</span>, <span class="number">5</span>)</span></span>)
+ax.<span class="function"><span class="title">plot</span><span class="params">(range(<span class="number">1</span>, n_features+<span class="number">1</span>)</span></span>[:N], accuracies[:N], <span class="attribute">color</span>=<span class="string">'k'</span>)
+ax.<span class="function"><span class="title">set_title</span><span class="params">(<span class="string">"Decision Tree Accuracy"</span>)</span></span>
+ax.<span class="function"><span class="title">set_ylabel</span><span class="params">(<span class="string">"% Correct"</span>)</span></span>
+ax.<span class="function"><span class="title">set_xlabel</span><span class="params">(<span class="string">"Max Depth"</span>)</span></span>
+</code></pre><p>这样我们可以看见明显的下降的趋势，1-3之间应该是最好的的。<br>我们接下来看看compute_importances参数，它其实更象随机森林的方法，但是如果你使用0.16以后的版本你会看见它。</p>
+<pre><code>dt_ci = <span class="function"><span class="title">DecisionTreeClassifier</span><span class="params">(compute_importances=True)</span></span>
+<span class="tag">dt</span>.<span class="function"><span class="title">fit</span><span class="params">(X, y)</span></span><span class="id">#plot</span> the importances
+ne0 = <span class="tag">dt</span><span class="class">.feature_importances_</span> != <span class="number">0</span>
+y_comp = <span class="tag">dt</span><span class="class">.feature_importances_</span>[ne0]
+x_comp = np.<span class="function"><span class="title">arange</span><span class="params">(len(dt.feature_importances_)</span></span>)[ne0]
+import matplotlib<span class="class">.pyplot</span> as plt
+f, ax = plt.<span class="function"><span class="title">subplots</span><span class="params">(figsize=(<span class="number">7</span>, <span class="number">5</span>)</span></span>)
+ax.bar(x_comp, y_comp）
+</code></pre><h2 id="调整决策树">调整决策树</h2><p>如果我们只使用基本的决策树，性能当然不是很好，我们还是需要调整参数。</p>
+<h3 id="准备-1">准备</h3><p>我们需要安装pydot。</p>
+<h3 id="怎样去做-1">怎样去做</h3>
       
     </div>
     
